@@ -1,6 +1,7 @@
 import time #IFYOUSEETHISEDITTHISWORKS. t. julkkis666
 import random
 starttimes = 5
+#Moi
 
 while starttimes >= 0:
     
@@ -367,7 +368,7 @@ def battle(player,entity):
 
 def cave(player,goblin):
     print "\n"*60
-    print "you walk arround in the cave."
+    print "you walk around in the cave."
     whatdo2 = 1
     while whatdo2 == 1:
         chanse = random.randint(0,5)
@@ -472,7 +473,8 @@ def noob_tower(player,goblin,evil_wizard):
     print
     print "The further you climb, the more of the dark magic you'll start to feel in your fingers."
 
-
+###########
+Village
 
 ###########
 #World Map#
@@ -515,7 +517,9 @@ while player.hp > 0:
             evil_wizard = evil_wizard()
             noob_tower(player,goblin,evil_wizard)
 
-
+    if location == [1,1]: 
+        print "You see a village! It looks nice and comfortable."
+        print "Do you want to go to the village?\n(1)Yes\n(2)No.\n" tryer(num,string)
 
 
 
