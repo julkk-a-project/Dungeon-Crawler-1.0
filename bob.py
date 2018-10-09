@@ -1,4 +1,4 @@
-import time
+import time #IFYOUSEETHISEDITTHISWORKS. t. julkkis666
 import random
 starttimes = 5
 
@@ -409,9 +409,9 @@ def noob_tower(player,goblin,evil_wizard):
         upp = 1
         while upp >= 1:
             print "\n"*60
-            print "'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'"
+            print "'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'"
             print "The further you climb,\n the more of the dark magic you feel in your fingers."
-            print "'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'"
+            print "'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'Â¨Â´'~'"
             print "\nYou climb the stairs of the tower.\n"
             print "You're on level", upp
             print
