@@ -224,9 +224,9 @@ def tryer(num,string):
 
 
 
-#############
-#pokemon 1v1#
-#############
+###############
+#Battle system#
+###############
 def battle(player,entity):
     print "\n"*60
     print "_______________"
