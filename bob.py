@@ -1,7 +1,6 @@
-import time #IFYOUSEETHISEDITTHISWORKS. t. julkkis666
+import time
 import random
 starttimes = 5
-#Moi
 
 while starttimes >= 0:
     
