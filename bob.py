@@ -176,6 +176,24 @@ class rougel: #TODO: maybe randomize rouge every time you select it?
 
 
 
+class arskaTown_guard:
+    klass = "ArskaTown Guard"
+    
+    level = 5
+    maxxp = (level * 3) ** 2
+    maxhp = 15
+    hp = maxhp
+    st = 5
+    mp = 0
+    ag = 1
+    xp = maxhp + st + mp + ag
+    def fixhealth(self):
+        self.hp = self.maxhp
+
+
+
+
+
 player = "???"
 print
 name = raw_input("What is your name!\n")
@@ -509,9 +527,15 @@ def noob_tower(player,goblin,evil_wizard):
     print
     print "The further you climb, the more of the dark magic you'll start to feel in your fingers."
 
-###########
-Village
+#########
+#Village#
+#########
 
+arskaTown(player,arskaTown_guard):
+    pass #Add guard encounter, add healer, add bridge fetch quest, add travel possibilities.
+
+
+    
 ###########
 #World Map#
 ###########
@@ -522,7 +546,10 @@ Village
 
 
 location = [0,0]
-
+arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
+evil_wizard = evil_wizard()
+goblin = goblin()
+arskaTown_guard = arskaTown_guard()
 while player.hp > 0:
     print "\n"*60
     print "-----------"
@@ -533,7 +560,6 @@ while player.hp > 0:
         print "You see a cave!"
         yesno1 = input("Do you want to enter?\n(1)Yes\n(2)No")
         if yesno1 == 1:
-            goblin = goblin()
             cave(player,goblin)
         else:
             print "\n"*60
@@ -549,13 +575,13 @@ while player.hp > 0:
         print "You see a DARK TOWER!!!"
         yesno2 = input("Do you want to enter?\n(1)Yes\n(2)No")
         if yesno2 == 1:
-#            goblin = goblin()
-            evil_wizard = evil_wizard()
             noob_tower(player,goblin,evil_wizard)
 
     if location == [1,1]: 
-        print "You see a village! It looks nice and comfortable."
-        print "Do you want to go to the village?\n(1)Yes\n(2)No.\n" tryer(num,string)
+        print "\n"*60
+        yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
+            if yesno3 == 1:
+                arskaTown(player,arskaTown_guard) #handle arskaTownAgro variable globaly
 #testtest
 
 
