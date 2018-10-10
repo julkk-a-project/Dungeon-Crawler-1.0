@@ -4,20 +4,57 @@ starttimes = 5
 
 while starttimes >= 0:
     
+    
     print "***********"
-    print "..........."
+    print "***********"
     print "*** D C ***"
-    print "... 1.0 ..."
+    print "*** 1.0 ***"
     print "***********"
     print "..........."
     time.sleep(0.01)
     print "\n"*60
     
+    print "***********"
+    print "***********"
+    print "*** D C ***"
+    print "*** 1.0 ***"
     print "..........."
+    print "***********"
+    time.sleep(0.01)
+    print "\n"*60
+    
+    print "***********"
+    print "***********"
+    print "*** D C ***"
+    print "... 1.0 ..."
+    print "***********"
+    print "***********"
+    time.sleep(0.01)
+    print "\n"*60
+    
+    print "***********"
     print "***********"
     print "... D C ..."
     print "*** 1.0 ***"
+    print "***********"
+    print "***********"
+    time.sleep(0.01)
+    print "\n"*60
+    
+    print "***********"
     print "..........."
+    print "*** D C ***"
+    print "*** 1.0 ***"
+    print "***********"
+    print "***********"
+    time.sleep(0.01)
+    print "\n"*60
+    
+    print "..........."
+    print "***********"
+    print "*** D C ***"
+    print "*** 1.0 ***"
+    print "***********"
     print "***********"
     time.sleep(0.01)
     print "\n"*60
