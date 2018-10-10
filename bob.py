@@ -143,6 +143,20 @@ class evil_wizard:
         self.hp = 50
         self.mp = 5
 
+class bridgeTroll:
+    klass = "Bridge Troll"
+    
+    level = 15
+    maxxp = (level * 3) ** 2
+    maxhp = 25
+    hp = maxhp
+    st = 4
+    mp = 0
+    ag = 1
+    xp = maxhp + st + mp + ag
+    def fixhealth(self):
+        self.hp = self.maxhp
+
 
 class large_door:
     klass = "Large Door"
@@ -254,6 +268,7 @@ def encounter(player,entity):
     print "YOU ENCOUNTERED A", entity.klass, "!"
     print
 #    print entity.taunt #TODO: FIX ME
+    time.sleep(2)
     battle(player,entity)
 
 
@@ -531,10 +546,34 @@ def noob_tower(player,goblin,evil_wizard):
 #Village#
 #########
 
-arskaTown(player,arskaTown_guard):
+def arskaTown(player,arskaTown_guard):
     pass #Add guard encounter, add healer, add bridge fetch quest, add travel possibilities.
 
 
+##############
+#Bridge [2,1]#  
+##############
+def bridge(player, bridgeTroll):
+    global location
+    if bridgeTroll.hp > 0:
+        print "A troll appears from below the bridge\n"
+        encounter(player, bridgeTroll)#line 265
+        print "The troll growls painfully as it sinks down the river."#fix later
+    if bridgeTroll.hp <= 0:
+        print "You see a dead troll by the bridge"
+        time.sleep(1)
+        print "\n" * 60
+        choice = tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
+        if choice == 1:
+            location = [3,1]
+            return player, bridgeTroll
+        if choice == 2:
+            location = [1,1]
+            return player, bridgeTroll
+        
+    
+    
+    
     
 ###########
 #World Map#
@@ -550,6 +589,7 @@ arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
 evil_wizard = evil_wizard()
 goblin = goblin()
 arskaTown_guard = arskaTown_guard()
+bridgeTroll = bridgeTroll()
 while player.hp > 0:
     print "\n"*60
     print "-----------"
@@ -580,8 +620,13 @@ while player.hp > 0:
     if location == [1,1]: 
         print "\n"*60
         yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
-            if yesno3 == 1:
-                arskaTown(player,arskaTown_guard) #handle arskaTownAgro variable globaly
+        if yesno3 == 1:
+            arskaTown(player,arskaTown_guard) #handle arskaTownAgro variable globaly
+    if location == [2,1]:
+        print "You have arrived to a bridge" #update later, tryer() line 265
+        cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")
+        if cross == 1:
+            bridge(player, bridgeTroll)
 #testtest
 
 
