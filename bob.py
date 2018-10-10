@@ -233,9 +233,9 @@ while try2 != 1:
 def encounter(player,entity):
     
     print "\n"*60
-    print "YOU ENCOUNTERED A" entity.klass, "!"
+    print "YOU ENCOUNTERED A", entity.klass, "!"
     print
-    print entity.taunt
+#    print entity.taunt #TODO: FIX ME
     battle(player,entity)
 
 
