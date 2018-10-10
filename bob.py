@@ -7,7 +7,7 @@ while starttimes >= 0:
     # List with all the dotted combinations
     dottedLine = ("...........", "...........", "... D C ...","... 1.0 ...", "...........", "...........")
     reversed = [5, 4, 3, 2, 1, 0]
-     for j in range(0, 6):
+    for j in range(0, 6):
         for i in range(0, len(dottedLine)):
             # the first time j is 0 so reversed[j] is 5
             # when i is 5 it is the last print so it takes the dotted line from index 5
@@ -241,7 +241,7 @@ def encounter(player,entity):
 ################
 
 def tryer(num,string):
-    while true:
+    while True:
         print string
         try:
             trynum = input("You chose: ")
@@ -274,9 +274,9 @@ def battle(player,entity):
         print "--------------------------"
         print name, "health:", player.hp, "/", player.maxhp
         print "--------------------------\n"
-        attack = input("which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n") #TODO: add chek if string
+        attack = tryer(2,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n")
         print "\n" * 60
-        if attack == 1: #TODO: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
+        if attack == 1: #TODO?: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
             print "You use SLASH!!!"
             time.sleep(1)
             #TODO: add agility chek
@@ -384,14 +384,14 @@ def battle(player,entity):
                 trystat = 0
             else:
                 print "my nibba, try an advertised number!"
-        player.xp = 0
+        player.xp = 0 #TODO: make dynamic
     print "\nbattle ended\n"
             
-#######
-#Chase#
-#######
+########################
+#Run awaay loik a poosy#
+########################
 
-  #add chase event here  
+  #add run away calculator here (use agility chek?)
 
 
 ###########
@@ -430,7 +430,7 @@ def noob_tower(player,goblin,evil_wizard):
     #Add art of the tower
     door = large_door()
     print "The Door is locked."
-    yesno1 = input("(1)Kick it in\n(2)Run away loik a poossy")
+    yesno1 = tryer(2,"(1)Kick it in\n(2)Run away loik a poossy")
     if yesno1 == 1:
         battle(player,door)
         time.sleep(2)
@@ -442,13 +442,13 @@ def noob_tower(player,goblin,evil_wizard):
         upp = 1
         while upp >= 1:
             print "\n"*60
-            print "'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'"
+            print "~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'"
             print "The further you climb,\n the more of the dark magic you feel in your fingers."
-            print "'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'¨´'~'"
+            print "~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'~'"
             print "\nYou climb the stairs of the tower.\n"
             print "You're on level", upp
             print
-            up = input("Do you dare to keep climbing?\n(1)Yes! I HAVE THE POWEEEER!!!\n(2)nn-n-no i-i think i-i-i'll just go home now :(\n")
+            up = tryer(2,"Do you dare to keep climbing?\n(1)Yes! I HAVE THE POWEEEER!!!\n(2)nn-n-no i-i think i-i-i'll just go home now :(\n")
             if up == 1:
                 upp += 1
             else:
@@ -456,28 +456,19 @@ def noob_tower(player,goblin,evil_wizard):
             encounter = random.randint(1,5)
             if upp <= 4:
                 if encounter <= 2:
-                    print "\n"*60
-                    print "Oh crap! a goblin!"
                     goblin.fixhealth()
-                    time.sleep(1)
-                    battle(player,goblin)
+                    encounter(player,goblin)
                 else:
                     print "\n"*60
                     print "think i heard something..."
                     time.sleep(2)
             elif upp > 4 and upp < 10:
                 if encounter <= 2:
-                    print "\n"*60
-                    print "Oh crap! a goblin!"
                     goblin.fixhealth()
-                    time.sleep(1)
-                    battle(player,goblin)
+                    encounter(player,goblin)
                 elif encounter >= 4:
-                    print "\n"*60
-                    print "Wh-What?"
                     evil_wizard.fixhealth()
-                    time.sleep(1)
-                    battle(player,evil_wizard)
+                    encounter(player,evil_wizard)
                 else:
                     print "\n"*60
                     print "It seems like the walls are talking to me :S"
@@ -487,13 +478,13 @@ def noob_tower(player,goblin,evil_wizard):
                 print "----------------------------"
                 print "You made it to the top floor"
                 print "----------------------------"
-                evil_wizard.fixhealth
                 evil_wizard.is_grand()
                 print "\nin front of you stands a grand wizard."
-                time.sleep(3)
+                time.sleep(2)
                 print '\nWizard: "THIS IS MY LAIR! THAU SHALT NOT PASS!"\n\n'
-                time.sleep(3)
+                time.sleep(2)
                 battle(player,evil_wizard)
+                #TODO: end-taunt, loot, escape
                 
                     
             
@@ -506,16 +497,16 @@ def noob_tower(player,goblin,evil_wizard):
     print "The further you climb, the more of the dark magic you'll start to feel in your fingers."
 
 #########
-#Village#
+#Village# cordinates (1,1)
 #########
 
 def arskaTown(player,arskaTown_guard):
     pass #Add guard encounter, add healer, add bridge fetch quest, add travel possibilities.
 
 
-##############
-#Bridge [2,1]#  
-##############
+########
+#Bridge# cordinates (1,2)
+########
 def bridge(player, bridgeTroll):
     global location
     if bridgeTroll.hp > 0:
@@ -549,8 +540,10 @@ def bridge(player, bridgeTroll):
 
 location = [0,0]
 arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
+darkTowerBoss = 1 #1 -> boss alive. 0 -> boss killed and loot collected
 evil_wizard = evil_wizard()
 goblin = goblin()
+door = large_door() #in DarkTower
 arskaTown_guard = arskaTown_guard()
 bridgeTroll = bridgeTroll()
 while player.hp > 0:
@@ -561,7 +554,7 @@ while player.hp > 0:
 
     if location == [0,0]: #NoobCave
         print "You see a cave!"
-        yesno1 = input("Do you want to enter?\n(1)Yes\n(2)No")
+        yesno1 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
         if yesno1 == 1:
             cave(player,goblin)
         else:
@@ -570,15 +563,27 @@ while player.hp > 0:
             print "North of you there is a Dark tower.\nIn all other directions there are mountains."
             print "-----------------------------------"
             testmove1 = 2
-            testmove1 = input("Move North?\n(1)Yes\n(2)No.\n")
+            testmove1 = tryer(2,"Move North?\n(1)Yes\n(2)No.\n")
             if testmove1 == 1:
-                location[1] += 1
+                location = [0,1]
 
     if location == [0,1]:
         print "You see a DARK TOWER!!!"
-        yesno2 = input("Do you want to enter?\n(1)Yes\n(2)No")
+        yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
         if yesno2 == 1:
             noob_tower(player,goblin,evil_wizard)
+        if yesno2 == 2:
+            print "\n"*60
+            yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
+            if yesno2_2 == 1:
+                location = [0,2]
+            if yesno2_2 == 2:
+                location = [1,1]
+            if yesno2_2 == 1:
+                location = [0,0]
+            else:
+                pass
+
 
     if location == [1,1]: 
         print "\n"*60
@@ -590,7 +595,6 @@ while player.hp > 0:
         cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")
         if cross == 1:
             bridge(player, bridgeTroll)
-#testtest
 
 
 
