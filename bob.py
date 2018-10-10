@@ -1,65 +1,28 @@
 import time
 import random
-starttimes = 5
-#Hello world
+starttimes = 3
 while starttimes >= 0:
-    
-    
-    print "***********"
-    print "***********"
-    print "*** D C ***"
-    print "*** 1.0 ***"
-    print "***********"
-    print "..........."
-    time.sleep(0.1)
-    print "\n"*60
-    
-    print "***********"
-    print "***********"
-    print "*** D C ***"
-    print "*** 1.0 ***"
-    print "..........."
-    print "***********"
-    time.sleep(0.1)
-    print "\n"*60
-    
-    print "***********"
-    print "***********"
-    print "*** D C ***"
-    print "... 1.0 ..."
-    print "***********"
-    print "***********"
-    time.sleep(0.1)
-    print "\n"*60
-    
-    print "***********"
-    print "***********"
-    print "... D C ..."
-    print "*** 1.0 ***"
-    print "***********"
-    print "***********"
-    time.sleep(0.1)
-    print "\n"*60
-    
-    print "***********"
-    print "..........."
-    print "*** D C ***"
-    print "*** 1.0 ***"
-    print "***********"
-    print "***********"
-    time.sleep(0.1)
-    print "\n"*60
-    
-    print "..........."
-    print "***********"
-    print "*** D C ***"
-    print "*** 1.0 ***"
-    print "***********"
-    print "***********"
-    time.sleep(0.1)
-    print "\n"*60
+    # List with all the normal combinations
+    defaultLine = ("***********", "***********", "*** D C ***", "*** 1.0 ***", "***********", "***********")
+    # List with all the dotted combinations
+    dottedLine = ("...........", "...........", "... D C ...","... 1.0 ...", "...........", "...........")
+    reversed = [5, 4, 3, 2, 1, 0]
+     for j in range(0, 6):
+        for i in range(0, len(dottedLine)):
+            # the first time j is 0 so reversed[j] is 5
+            # when i is 5 it is the last print so it takes the dotted line from index 5
+            
+            # the secound time j is 1 so reversed[j] is 4
+            # when i is 4 it is the secound last print so it takes the dotted line from index 4
+            
+            # and so on
+            if i == reversed[j]:
+                print dottedLine[i]
+            else:
+                print defaultLine[i]
+        time.sleep(0.25)
+        print "\n"*60
     starttimes -= 1
-
 
 time.sleep(0)
 
