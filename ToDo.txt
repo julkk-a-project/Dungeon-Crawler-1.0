@@ -1,5 +1,9 @@
 edit choises to be handeled by the tryer(num,string) function
 
+make "world map" only chek which cordinate the player is in.
+
+create a movement system
+
 add inventory system
 
 add mage item that boosts magic abilities to top of Dark tower, which you get after defeating the grand wizard.
