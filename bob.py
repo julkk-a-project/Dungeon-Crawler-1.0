@@ -244,14 +244,14 @@ def tryer(num,string):
         print string
         try:
             trynum = input("You chose: ")
+            if trynum >= 1 and trynum <= num:
+                if type(trynum) == type(1):
+                    return trynum
+            else:
+                print "try an advertised number"
         except:
             print "Try a number, fool"
-        if trynum >= 1 and trynum <= num:
-            if type(trynum) == type(1):
-                return trynum
-        else:
-            print "try an advertised number"
-
+        
 
 
 
@@ -452,9 +452,9 @@ def noob_tower(player,goblin,evil_wizard):
                 upp += 1
             else:
                 upp -= 1
-            encounter = random.randint(1,5)
+            encounterChanse = random.randint(1,5)
             if upp <= 4:
-                if encounter <= 2:
+                if encounterChanse <= 2:
                     goblin.fixhealth()
                     encounter(player,goblin)
                 else:
@@ -462,10 +462,10 @@ def noob_tower(player,goblin,evil_wizard):
                     print "think i heard something..."
                     time.sleep(2)
             elif upp > 4 and upp < 10:
-                if encounter <= 2:
+                if encounterChanse <= 2:
                     goblin.fixhealth()
                     encounter(player,goblin)
-                elif encounter >= 4:
+                elif encounterChanse >= 4:
                     evil_wizard.fixhealth()
                     encounter(player,evil_wizard)
                 else:
