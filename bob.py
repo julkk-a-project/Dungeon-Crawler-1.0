@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+
 import time
 import random
-starttimes = 3
-while starttimes >= 0:
+
+
+startTimes = 3
+for times in range(0, startTimes):
     # List with all the normal combinations
     defaultLine = ("***********", "***********", "*** D C ***", "*** 1.0 ***", "***********", "***********")
     # List with all the dotted combinations
@@ -22,9 +26,6 @@ while starttimes >= 0:
                 print defaultLine[i]
         time.sleep(0.25)
         print "\n"*60
-    starttimes -= 1
-
-time.sleep(0)
 
 class warrior:
     klass = "Warrior"
@@ -73,7 +74,6 @@ class rouge:
 
 class goblin:
     klass = "Goblin"
-    
     level = 1
     maxxp = (level * 3) ** 2
     maxhp = 5
@@ -88,7 +88,6 @@ class goblin:
 
 class evil_wizard:
     klass = "Evil Wizard"
-    
     level = 3
     maxxp = (level * 3) ** 2
     maxhp = 10
@@ -123,7 +122,6 @@ class bridgeTroll:
 
 class large_door:
     klass = "Large Door"
-    
     level = 3
     maxxp = (level * 3) ** 2
     maxhp = 10
@@ -137,15 +135,16 @@ class large_door:
     
     
 class rougel: #TODO: maybe randomize rouge every time you select it?
-    klass = "RougeLike"
-    level = 1
-    maxxp = (level * 3) ** 2
-    maxhp = random.randint(8,20)
-    hp = maxhp
-    st = random.randint(1,5)
-    mp = random.randint(0,5)
-    ag = random.randint(1,3)
-    xp = maxhp + st + mp + ag
+    def __init__(self):
+        self.klass = "RougeLike"
+        self.level = 1
+        self.maxxp = (self.level * 3) ** 2
+        self.maxhp = random.randint(8,20)
+        self.hp = self.maxhp
+        self.st = random.randint(1,5)
+        self.mp = random.randint(0,5)
+        self.ag = random.randint(1,3)
+        self.xp = self.maxhp + self.st + self.mp + self.ag
     def heal(self):
         self.hp = self.maxhp
     def setXp(self):
