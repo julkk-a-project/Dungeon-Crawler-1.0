@@ -500,7 +500,25 @@ def noob_tower(player,goblin,evil_wizard):
 #########
 
 def arskaTown(player,arskaTown_guard):
-    pass #Add guard encounter, add healer, add bridge fetch quest, add travel possibilities.
+    print "Outside the village you see a sign, it says: Welcome to Arskatown"
+    time.sleep(2)
+    print "You also see a guard standing in front of you"
+    if arskaTownAgro == 0:
+        print "Guard: Hello there! You may enter Arskatown."
+        time.sleep(2)
+        print "You look at the guard and think: Damn I could get xp from that."
+        choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
+        if choice == 1:
+            print "You walk past the guard and enter Arskatown"
+        if choice == 2:
+            arskaTownAgro = 1
+    if arskaTownAgro == 1:
+        print "Guard: PREPARE FOR BATTLE!"
+        if arskaTown_guard.hp > 0:
+            encounter(player,arskaTown_guard)
+        if arskaTown_guard.hp <= 0:
+            print "Me, defeated?, HOW???"
+    pass #add healer, add bridge fetch quest, add travel possibilities.
 
 
 ########
