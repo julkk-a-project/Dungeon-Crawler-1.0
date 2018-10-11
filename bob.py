@@ -500,6 +500,7 @@ def noob_tower(player,goblin,evil_wizard):
 #########
 
 def arskaTown(player,arskaTown_guard):
+    global arskaTownAgro
     print "Outside the village you see a sign, it says: Welcome to Arskatown"
     time.sleep(2)
     print "You also see a guard standing in front of you"
