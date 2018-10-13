@@ -254,7 +254,7 @@ def encounter(player,entity):
 
 
 ################
-#Choise handler#
+#Choice handler#
 ################
 
 def tryer(num,string):
@@ -280,7 +280,27 @@ def dice(num): #num -> how big a die you throw
     number = random.randint(1,num)
     return number
 
-
+#################
+#jump,duck,dodge# used in sun temple line 599
+#################
+def jumpDuckDodge():
+    jumpPrompt = "There is a stone on the ground in your way\n"
+    duckPrompt = "You see a branch att head level\n"
+    dodgePrompt = "A stone falls from the ceiling\n"
+    promptList = [jumpPrompt, duckPrompt, dodgePrompt]
+    #tryerPrompt = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+    print "Oh no it seems the way to the exit has taken som damage from all the shaking\n"
+    for i in range(0, 7):
+        print random.choice(promptList)
+        print tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+        
+    
+       
+        
+    
+    
+    
+    
 ###############
 #Battle system#
 ###############
@@ -589,9 +609,18 @@ def bridge(player, bridgeTroll):
         if choice == 2:
             location = [3,1]
             return player, bridgeTroll
-        
-    
-    
+
+############
+#Sun temple# cordinates [2,0]   check cord with master ;)     
+############    
+def sunTemple(player):
+    print "After picking up the statue the ground starts shaking and you hear something huge coming towards you."
+    print "You probably should start running towards the exit."
+    choice1 = tryer(2, "(1)Run\n(2)Stand still like a moron\n")
+    if choice1 == 1:
+       jumpDuckDodge()#line 287
+    elif choice1 == 2:
+        print "Good job you just got smashed by a boulder and died."
     
     
 ###########
@@ -663,7 +692,7 @@ while player.hp > 0:
         print "There is an old warning sign next to the bridge. it looks menacing."
         time.sleep(4)
         print "\n"*60
-        cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")
+        cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
         if cross == 1:
             bridge(player, bridgeTroll)
         if cross == 2:
@@ -673,6 +702,16 @@ while player.hp > 0:
             if yesno4_2 == 2:
                 pass
 
+    if location == [2,0]: #Sun temple, check cordinates with master ;)
+        print "You see a temple" #Improve lore
+        print "You feel something strong coming from the temple, you can't resit the urge to enter."
+        time.sleep(3)
+        print "\n" * 20
+        print "after walking for a couple minutes you arrive at a pedestal where you see a idol, you feel a strong presence from it."
+        choice = tryer(2, "Take the statue?\n(1)Yes\n(2)No\n")#line 261
+        if choice == 1:
+            sunTemple(player)#line 597
+        
 
 
 
