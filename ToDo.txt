@@ -32,7 +32,7 @@ add fetchquest location at cordinates [1,2].
 
 plan what to add to other side of bridge
 
-
+add a high score table (write to a txt file)
 
 
 

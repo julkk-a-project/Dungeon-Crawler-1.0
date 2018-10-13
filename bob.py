@@ -27,6 +27,24 @@ for times in range(0, startTimes):
         time.sleep(0.25)
         print "\n"*60
 
+#TODO: make player classes subclasses of a master "player class".
+class baseplayer:
+    level = 1
+    maxxp = (level * 3) ** 2
+    maxhp = 1
+    hp = maxhp
+    st = 1
+    mp = 0
+    ag = 1
+    xp = 0
+    def heal(self):
+        self.hp = self.maxhp
+    def setXp(self):
+        self.maxxp = (self.level * 3) ** 2
+    
+    
+
+
 class warrior:
     klass = "Warrior"
     level = 1
@@ -40,7 +58,7 @@ class warrior:
     def heal(self):
         self.hp = self.maxhp
     def setXp(self):
-        self.maxxp = (level * 3) ** 2
+        self.maxxp = (self.level * 3) ** 2
     
 class mage:
     klass = "Mage"
@@ -55,7 +73,7 @@ class mage:
     def heal(self):
         self.hp = self.maxhp
     def setXp(self):
-        self.maxxp = (level * 3) ** 2
+        self.maxxp = (self.level * 3) ** 2
     
 class rouge:
     klass = "Rouge"
@@ -70,7 +88,7 @@ class rouge:
     def heal(self):
         self.hp = self.maxhp
     def setXp(self):
-        self.maxxp = (level * 3) ** 2
+        self.maxxp = (self.level * 3) ** 2
 
 class goblin:
     klass = "Goblin"
@@ -134,7 +152,7 @@ class large_door:
         self.hp = self.maxhp
     
     
-class rougel: #TODO: maybe randomize rouge every time you select it?
+class rougel:
     def __init__(self):
         self.klass = "RougeLike"
         self.level = 1
@@ -148,7 +166,7 @@ class rougel: #TODO: maybe randomize rouge every time you select it?
     def heal(self):
         self.hp = self.maxhp
     def setXp(self):
-        self.maxxp = (level * 3) ** 2
+        self.maxxp = (self.level * 3) ** 2
 
 
 
@@ -246,6 +264,7 @@ def tryer(num,string):
             trynum = input("You chose: ")
             if trynum >= 1 and trynum <= num:
                 if type(trynum) == type(1):
+                    print "\n"*60
                     return trynum
             else:
                 print "try an advertised number"
@@ -253,7 +272,13 @@ def tryer(num,string):
             print "Try a number, fool"
         
 
+#############
+#Dice roller#
+#############
 
+def dice(num): #num -> how big a die you throw
+    number = random.randint(1,num)
+    return number
 
 
 ###############
@@ -273,7 +298,7 @@ def battle(player,entity):
         print "--------------------------"
         print name, "health:", player.hp, "/", player.maxhp
         print "--------------------------\n"
-        attack = tryer(2,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n")
+        attack = tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
         print "\n" * 60
         if attack == 1: #TODO?: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
             print "You use SLASH!!!"
@@ -282,8 +307,8 @@ def battle(player,entity):
             print "It was super effective!"
             entity.hp -= player.st
             time.sleep(1)
-            print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
-        else:
+            print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+        elif attack == 2:
             print "You use FIREBALL!!!"
             time.sleep(1)
             #TODO: add agility chek
@@ -291,12 +316,20 @@ def battle(player,entity):
             time.sleep(1)
             entity.hp -= player.mp
             print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+        else:
+            escape = coward(player,entity)
+            time.sleep(2)
+            print "\n"*60
+            if escape == 0:
+                pass
+            if escape == 1:
+                return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
             
-        if entity.st > entity.mp:
+        if entity.st > entity.mp: #Simple "AI" to make the AI use weiged random attacks
             if entity.mp <= 0:
                 attackE = 1
             else:
-                humanizer = random.randint(1,3)
+                humanizer = dice(3)
                 if humanizer == 3:
                     attackE = 2
                 else:
@@ -305,7 +338,7 @@ def battle(player,entity):
             if entity.st <= 0:
                 attackE = 2
             else:
-                humanizer = random.randint(1,3)
+                humanizer = dice(3)
                 if humanizer == 3:
                     attackE = 1
                 else:
@@ -363,7 +396,7 @@ def battle(player,entity):
         player.level += 1
         trystat = 1
         while trystat == 1:
-            statplus = tryer(5,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic\n(4)Agility\n(5)Dude, i just want to heal")
+            statplus = tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
             healpoints = player.maxhp
             if statplus == 1:
                 player.maxhp += 1
@@ -378,19 +411,32 @@ def battle(player,entity):
             elif statplus == 4:
                 player.ag += 1
                 trystat = 0
-            elif statplus == 5:
-                player.hp = healpoints
-                trystat = 0
             else:
                 print "my nibba, try an advertised number!"
-        player.xp = 0 #TODO: make dynamic
+        player.xp -= player.maxxp
+        player.setXp()
     print "\nbattle ended\n"
             
 ########################
-#Run awaay loik a poosy#
+#Run awaay loik a poosy# TODO: make more complex
 ########################
 
-  #add run away calculator here (use agility chek?)
+def coward(player,entity): #returns 1 if escape successfull, returns 0 if escape failed
+    test = player.ag - entity.ag
+    if test > 0:
+        "EZ escape"
+        return 1
+    if test == 0:
+        test2 = dice(2)
+        if test2 == 1:
+            print "You barely escaped"
+            return 1
+        else:
+            print "You tripped"
+            return 0
+    if test < 0:
+        print "You're worthless at running"
+        return 0
 
 
 ###########
@@ -483,7 +529,7 @@ def noob_tower(player,goblin,evil_wizard):
                 print '\nWizard: "THIS IS MY LAIR! THAU SHALT NOT PASS!"\n\n'
                 time.sleep(2)
                 battle(player,evil_wizard)
-                #TODO: end-taunt, loot, escape
+                #TODO: chek if wizard dead, end-taunt, loot, escape
                 
                     
             
@@ -514,7 +560,7 @@ def arskaTown(player,arskaTown_guard):
         if choice == 2:
             arskaTownAgro = 1
     if arskaTownAgro == 1:
-        print "Guard: PREPARE FOR BATTLE!"
+        print "Guard: PREPARE FOR BATTLE!" 
         if arskaTown_guard.hp > 0:
             encounter(player,arskaTown_guard)
         if arskaTown_guard.hp <= 0:
@@ -530,17 +576,18 @@ def bridge(player, bridgeTroll):
     if bridgeTroll.hp > 0:
         print "A troll appears from below the bridge\n"
         encounter(player, bridgeTroll)#line 265
-        print "The troll growls painfully as it sinks down the river."#fix later
+        print "The troll growls painfully as it sinks down into the river."
+        time.sleep(2)
     if bridgeTroll.hp <= 0:
         print "You see a dead troll by the bridge"
-        time.sleep(1)
+        time.sleep(2)
         print "\n" * 60
         choice = tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
         if choice == 1:
-            location = [3,1]
+            location = [1,1]
             return player, bridgeTroll
         if choice == 2:
-            location = [1,1]
+            location = [3,1]
             return player, bridgeTroll
         
     
@@ -552,12 +599,9 @@ def bridge(player, bridgeTroll):
 ###########
 
 
-
-
-
-
 location = [0,0]
 arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
+arskaTownQuest1 = 0 #0 -> fetchquest not taken yet. 1 -> fetchquest taken. 2 -> fetchquest finnished(allow crossing to bridge)
 darkTowerBoss = 1 #1 -> boss alive. 0 -> boss killed and loot collected
 evil_wizard = evil_wizard()
 goblin = goblin()
@@ -566,9 +610,7 @@ arskaTown_guard = arskaTown_guard()
 bridgeTroll = bridgeTroll()
 while player.hp > 0:
     print "\n"*60
-    print "-----------"
-    print "|OVERWORLD|"
-    print "-----------"
+    print "-----------\n|OVERWORLD|\n-----------"
 
     if location == [0,0]: #NoobCave
         print "You see a cave!"
@@ -585,7 +627,7 @@ while player.hp > 0:
             if testmove1 == 1:
                 location = [0,1]
 
-    if location == [0,1]:
+    if location == [0,1]: #Dark Tower
         print "You see a DARK TOWER!!!"
         yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
         if yesno2 == 1:
@@ -597,22 +639,46 @@ while player.hp > 0:
                 location = [0,2]
             if yesno2_2 == 2:
                 location = [1,1]
-            if yesno2_2 == 1:
+            if yesno2_2 == 3:
                 location = [0,0]
             else:
                 pass
 
-
-    if location == [1,1]: 
+    if location == [1,1]: #ArskaTown
         print "\n"*60
         yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
         if yesno3 == 1:
-            arskaTown(player,arskaTown_guard) #handle arskaTownAgro variable globaly
-    if location == [2,1]:
+            arskaTown(player,arskaTown_guard)
+        if yesno3 == 2:
+            yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
+            if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS ADDED
+                location = [1,2]
+            if yesno3_2 == 2:
+                location = [1,0]
+            else:
+                pass
+
+    if location == [1,2]:
         print "You have arrived to a bridge" #update later, tryer() line 265
+        print "There is an old warning sign next to the bridge. it looks menacing."
+        time.sleep(4)
+        print "\n"*60
         cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")
         if cross == 1:
             bridge(player, bridgeTroll)
+        if cross == 2:
+            yesno4_2 = tryer(2,"(1) Back to ArkaTown\n(2)Try crossing the bridge")
+            if yesno4_2 == 1:
+                location = [1,1]
+            if yesno4_2 == 2:
+                pass
+
+
+
+
+
+
+    print "ERROR ERROR MISSING LOCATION!!!!"
 
 
 
