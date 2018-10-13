@@ -6,19 +6,11 @@ edit choises to be handeled by the tryer(num,string) function
 simplify player classes by making them inherit values from a "base player class".
 	do same for enemy/entity classes.
 
-fix maxxp bug where maxxp is always 9
-	also make XP over maxxp count after leveling up
-	also make player start with 0 xp
-
-make "world map" only chek which cordinate the player is in.
-
 make the battle calculations more complex:
 	Agility chek if missed (in a balanced way)
 	Add Damage type system [cut, heat]
 		Armour chek if resistant to damage type
 		more damage types 
-
-create a STANDARD movement system(function)
 
 add inventory system
 
@@ -40,3 +32,7 @@ DONE:
 -------
 
 add bridge with troll on codrinates [2,1]
+
+fix maxxp bug where maxxp is always 9
+	also make XP over maxxp count after leveling up
+	also make player start with 0 xp
