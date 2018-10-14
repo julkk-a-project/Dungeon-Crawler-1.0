@@ -184,6 +184,35 @@ class arskaTown_guard:
     def fixhealth(self):
         self.hp = self.maxhp
 
+class boulder:
+    klass = "A effing boulder!!!"
+    
+    level = 100
+    maxxp = (level * 3) ** 2
+    maxhp = 9001
+    hp = maxhp
+    st = 9001
+    mp = 9001 #AAAAAAAAAAAAAAAAAAAAAAAAAAAH!!!
+    ag = 9001
+    xp = 9001
+    def fixhealth(self):
+        self.hp = self.maxhp
+    
+
+class sunPriest:
+    klass = "Sun priest"
+    level = 3
+    maxxp = (level * 3) ** 2
+    maxhp = 10
+    hp = maxhp
+    st = 2
+    mp = 5
+    ag = 1
+    xp = maxhp + st + mp + ag
+    def fixhealth(self):
+        self.hp = self.maxhp
+    
+
 
 
 
@@ -287,20 +316,56 @@ def jumpDuckDodge():
     jumpPrompt = "There is a stone on the ground in your way\n"
     duckPrompt = "You see a branch att head level\n"
     dodgePrompt = "A stone falls from the ceiling\n"
+    boulderDist = 500
     promptList = [jumpPrompt, duckPrompt, dodgePrompt]
     #tryerPrompt = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
     print "Oh no it seems the way to the exit has taken som damage from all the shaking\n"
     for i in range(0, 7):
-        print random.choice(promptList)
-        print tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+        start = time.time()
+        event = random.choice(promptList)
+        print event
+        eventChoice = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+        if event == jumpPrompt:
+            if eventChoice == 1:
+                boulderDist -= 50
+                print "You jumped over the stone\n"           #TODO optimize distance and range values, update lore
+            else:                                               
+                boulderDist -= 100
+                print "You stumbled over the stone.\n"
+        if event == duckPrompt:
+            if eventChoice == 2:
+                boulderDist -= 50
+                print "You managed to run under the branch\n"
+            else:
+                boulderDist -= 100
+                print "You smashed your head into the branch\n"
+        if event == dodgePrompt:
+            if eventChoice == 3:
+                boulderDist -= 50
+                print "You dodged the stone\n"
+            else:
+                boulderDist -= 100
+                print "You got hit by the stone\n"
+
+        end = time.time()
+        if end - start > 3:
+            boulderDist -= 50
+        if end - start > 10:
+            boulderDist -= 50
+        if boulderDist <= 0:
+            print "It seems you got rolled over by a boulder.\n"
+            player.hp = -999
+            return player
+        print "The boulder is", boulderDist, "meters away from crushing you.\n"
+    print "\n" * 60
+    print "You reached the exit."
         
     
+        
        
         
     
-    
-    
-    
+       
 ###############
 #Battle system#
 ###############
@@ -614,7 +679,7 @@ def bridge(player, bridgeTroll):
 #Sun temple# cordinates [2,0]   check cord with master ;)     
 ############    
 def sunTemple(player):
-    print "After picking up the statue the ground starts shaking and you hear something huge coming towards you."
+    print "After picking up the statue the ground starts shaking and you hear something huge coming towards you."        #TODO battles, pussles and other activities
     print "You probably should start running towards the exit."
     choice1 = tryer(2, "(1)Run\n(2)Stand still like a moron\n")
     if choice1 == 1:
@@ -704,7 +769,7 @@ while player.hp > 0:
 
     if location == [2,0]: #Sun temple, check cordinates with master ;)
         print "You see a temple" #Improve lore
-        print "You feel something strong coming from the temple, you can't resit the urge to enter."
+        print "You feel something strong coming from the temple, you can't resit the urge to enter."  #TODO where to next?, what if no pickup statue?
         time.sleep(3)
         print "\n" * 20
         print "after walking for a couple minutes you arrive at a pedestal where you see a idol, you feel a strong presence from it."
