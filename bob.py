@@ -748,7 +748,7 @@ while player.hp > 0:
             if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS ADDED
                 location = [1,2]
             if yesno3_2 == 2:
-                location = [1,0]
+                location = [0,1]
             else:
                 pass
 
