@@ -653,7 +653,8 @@ def arskaTown(player,arskaTown_guard):
         choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
         if choice == 1:
             print "You walk past the guard and enter Arskatown"
-            Town(player,arskaTownQuest1)
+            Town(player)
+            return player
         if choice == 2:
             arskaTownAgro = 1
     if arskaTownAgro == 1:
@@ -662,46 +663,59 @@ def arskaTown(player,arskaTown_guard):
             encounter(player,arskaTown_guard)
         if arskaTown_guard.hp <= 0:
             print "Me, defeated?, HOW???"
-            choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Go to ??")
+            choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
             if choice == 1:
                 location = [0,1]
                 return player
             if choice == 2:
+                Town(player)
                 return player
-                location = [?,?]
-def Town(player,arskaTownQuest1):
+def Town(player):
     global arskaTownQuest1
     global location
+    while True:
+        choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
+        if choice == 1:
+            pass #Healer
+        if choice == 2:
+            drunk = 0
+            drunk = arskaBar()
+            if drunk == 1:
+                return player
+        if choice == 3:
+            if arskaTownQuest1 == 0:
+                print "To cross the bridge you need to complete the Quest"
+            if arskaTownQuest1 == 1:
+                print "Aha! i see you have the idol! you know who to show it to!"
+            if arskaTownQuest1 == 2:
+                print"You can cross the bridge"
+                location = [1,2]
+        if choice == 4:
+            choice = tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
+            if choice == 1:
+                location = [0,1]
+                return player
+            if choice == 2:
+                #location = [?,?]
+                return player
+        pass #add healer, add bridge fetch quest, add travel possibilities.
+
+def arskaBar():
+    global location
     locations = ([0,1],[1,1],[3,1])
-    choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
+    choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
     if choice == 1:
-        pass #Healer
+        print "\n"*60
+        print "You are drunk"
+        time.sleep(1)
+        location = random.choice(locations)
+        print "\nyou find you wake up but you don't remember getting here"
+        time.sleep(1)
+        return 1 
     if choice == 2:
-        choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
-        if choice == 1:
-            print "You are drunk"
-            location = random.choice(locations)
-            return player
-        if choice == 2:
-            print "You leave the bar"
-            Town(player,arskaTownQuest1)
-    if choice == 3:
-        if arskaTownQuest1 == 0:
-            print "To cross the bridge you need to complete the Quest"
-        if arskaTownQuest1 == 1:
-            print""
-        if arskaTownQuest1 == 2:
-            print"You can cross the bridge"
-            location = 
-    if choice == 4:
-        choice = tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
-        if choice == 1:
-            location = [0,1]
-            return player
-        if choice == 2:
-            location = [?,?]
-            return player
-    pass #add healer, add bridge fetch quest, add travel possibilities.
+        print "You leave the bar"
+        return 0
+    
 
 ########
 #Bridge# cordinates (1,2)
