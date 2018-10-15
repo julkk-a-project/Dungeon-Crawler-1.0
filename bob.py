@@ -506,12 +506,22 @@ def battle(player,entity):
 #Run awaay loik a poosy# TODO: make more complex
 ########################
 
-def coward(player,entity): #returns 1 if escape successfull, returns 0 if escape failed
-    test = player.ag - entity.ag
-    if test > 0:
+def coward(player,entity):
+    player = player.ag
+    playerD = 0
+    entity = entity.ag
+    entithD = 0
+    while player > 0:
+        playerD += dice(6)
+        player -= 1
+    while entity > 0:
+        entityD += dice(6)
+        entity -= 1
+        
+    if playerD > entityD:
         "EZ escape"
         return 1
-    if test == 0:
+    if playerD == entityD:
         test2 = dice(2)
         if test2 == 1:
             print "You barely escaped"
@@ -519,7 +529,7 @@ def coward(player,entity): #returns 1 if escape successfull, returns 0 if escape
         else:
             print "You tripped"
             return 0
-    if test < 0:
+    if playerD < entityD:
         print "You're worthless at running"
         return 0
 
