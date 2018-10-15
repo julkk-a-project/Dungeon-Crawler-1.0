@@ -660,8 +660,13 @@ def arskaTown(player,arskaTown_guard):
             encounter(player,arskaTown_guard)
         if arskaTown_guard.hp <= 0:
             print "Me, defeated?, HOW???"
-    pass #add healer, add bridge fetch quest, add travel possibilities.
-
+            choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Go to ??")
+            if choice == 1:
+                location = [0,1]
+                return player
+            if choice == 2:
+                return player
+                location[?,?]
 
 ########
 #Bridge# cordinates (1,2)
