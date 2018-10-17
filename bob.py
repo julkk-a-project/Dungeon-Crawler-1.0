@@ -332,14 +332,14 @@ def jumpDuckDodge():
             else:                                               
                 boulderDist -= 100
                 print "You stumbled over the stone.\n"
-        if event == duckPrompt:
+        elif event == duckPrompt:
             if eventChoice == 2:
                 boulderDist -= 50
                 print "You managed to run under the branch\n"
             else:
                 boulderDist -= 100
                 print "You smashed your head into the branch\n"
-        if event == dodgePrompt:
+        elif event == dodgePrompt:
             if eventChoice == 3:
                 boulderDist -= 50
                 print "You dodged the stone\n"
@@ -510,7 +510,7 @@ def coward(player,entity):
     player = player.ag
     playerD = 0
     entity = entity.ag
-    entithD = 0
+    entityD = 0
     while player > 0:
         playerD += dice(6)
         player -= 1
@@ -521,7 +521,7 @@ def coward(player,entity):
     if playerD > entityD:
         "EZ escape"
         return 1
-    if playerD == entityD:
+    elif playerD == entityD:
         test2 = dice(2)
         if test2 == 1:
             print "You barely escaped"
@@ -529,7 +529,7 @@ def coward(player,entity):
         else:
             print "You tripped"
             return 0
-    if playerD < entityD:
+    elif playerD < entityD:
         print "You're worthless at running"
         return 0
 
@@ -553,7 +553,7 @@ def cave(player,goblin):
                 if chase == 1:
                     print "HA-HA IT FOLLOWED YOU!!!"
                     whatdo = 1
-            if whatdo == 1:
+            elif whatdo == 1:
                 battle(player,goblin)
                 try:
                     whatdo2 = input("Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
@@ -655,19 +655,19 @@ def arskaTown(player,arskaTown_guard):
             print "You walk past the guard and enter Arskatown"
             Town(player)
             return player
-        if choice == 2:
+        elif choice == 2:
             arskaTownAgro = 1
-    if arskaTownAgro == 1:
+    elif arskaTownAgro == 1:
         print "Guard: PREPARE FOR BATTLE!" 
         if arskaTown_guard.hp > 0:
             encounter(player,arskaTown_guard)
-        if arskaTown_guard.hp <= 0:
+        elif arskaTown_guard.hp <= 0:
             print "Me, defeated?, HOW???"
             choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
             if choice == 1:
                 location = [0,1]
                 return player
-            if choice == 2:
+            elif choice == 2:
                 Town(player)
                 return player
 def Town(player):
@@ -677,25 +677,25 @@ def Town(player):
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
             pass #Healer
-        if choice == 2:
+        elif choice == 2:
             drunk = 0
             drunk = arskaBar()
             if drunk == 1:
                 return player
-        if choice == 3:
+        elif choice == 3:
             if arskaTownQuest1 == 0:
                 print "To cross the bridge you need to complete the Quest"
-            if arskaTownQuest1 == 1:
+            elif arskaTownQuest1 == 1:
                 print "Aha! i see you have the idol! you know who to show it to!"
-            if arskaTownQuest1 == 2:
+            elif arskaTownQuest1 == 2:
                 print"You can cross the bridge"
                 location = [1,2]
-        if choice == 4:
+        elif choice == 4:
             choice = tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
             if choice == 1:
                 location = [0,1]
                 return player
-            if choice == 2:
+            elif choice == 2:
                 #location = [?,?]
                 return player
         pass #add healer, add bridge fetch quest, add travel possibilities.
@@ -712,7 +712,7 @@ def arskaBar():
         print "\nyou find you wake up but you don't remember getting here"
         time.sleep(1)
         return 1 
-    if choice == 2:
+    elif choice == 2:
         print "You leave the bar"
         return 0
     
@@ -727,7 +727,7 @@ def bridge(player, bridgeTroll):
         encounter(player, bridgeTroll)#line 265
         print "The troll growls painfully as it sinks down into the river."
         time.sleep(2)
-    if bridgeTroll.hp <= 0:
+    elif bridgeTroll.hp <= 0:
         print "You see a dead troll by the bridge"
         time.sleep(2)
         print "\n" * 60
@@ -735,7 +735,7 @@ def bridge(player, bridgeTroll):
         if choice == 1:
             location = [1,1]
             return player, bridgeTroll
-        if choice == 2:
+        elif choice == 2:
             location = [3,1]
             return player, bridgeTroll
 
@@ -790,31 +790,27 @@ while player.hp > 0:
         yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
         if yesno2 == 1:
             noob_tower(player,goblin,evil_wizard)
-        if yesno2 == 2:
+        elif yesno2 == 2:
             print "\n"*60
             yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
             if yesno2_2 == 1:
                 location = [0,2]
-            if yesno2_2 == 2:
+            elif yesno2_2 == 2:
                 location = [1,1]
-            if yesno2_2 == 3:
+            elif yesno2_2 == 3:
                 location = [0,0]
-            else:
-                pass
 
     if location == [1,1]: #ArskaTown
         print "\n"*60
         yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
         if yesno3 == 1:
             arskaTown(player,arskaTown_guard)
-        if yesno3 == 2:
+        elif yesno3 == 2:
             yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
             if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS ADDED
                 location = [1,2]
-            if yesno3_2 == 2:
+            elif yesno3_2 == 2:
                 location = [0,1]
-            else:
-                pass
 
     if location == [1,2]:
         print "You have arrived to a bridge" #update later, tryer() line 265
@@ -824,11 +820,11 @@ while player.hp > 0:
         cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
         if cross == 1:
             bridge(player, bridgeTroll)
-        if cross == 2:
+        elif cross == 2:
             yesno4_2 = tryer(2,"(1) Back to ArkaTown\n(2)Try crossing the bridge")
             if yesno4_2 == 1:
                 location = [1,1]
-            if yesno4_2 == 2:
+            elif yesno4_2 == 2:
                 pass
 
     if location == [2,0]: #Sun temple, check cordinates with master ;)
