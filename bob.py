@@ -4,29 +4,6 @@ from time import sleep, time
 import random
 
 
-startTimes = 3
-for times in range(0, startTimes):
-    # List with all the normal combinations
-    defaultLine = ("***********", "***********", "*** D C ***", "*** 1.0 ***", "***********", "***********")
-    # List with all the dotted combinations
-    dottedLine = ("...........", "...........", "... D C ...","... 1.0 ...", "...........", "...........")
-    reversed = [5, 4, 3, 2, 1, 0]
-    for j in range(0, 6):
-        for i in range(0, len(dottedLine)):
-            # the first time j is 0 so reversed[j] is 5
-            # when i is 5 it is the last print so it takes the dotted line from index 5
-            
-            # the secound time j is 1 so reversed[j] is 4
-            # when i is 4 it is the secound last print so it takes the dotted line from index 4
-            
-            # and so on
-            if i == reversed[j]:
-                print dottedLine[i]
-            else:
-                print defaultLine[i]
-        sleep(0.25)
-        print "\n"*60
-
 #TODO: make player classes subclasses of a master "player class".
 class baseplayer:
     level = 1
@@ -211,63 +188,7 @@ class sunPriest:
     xp = maxhp + st + mp + ag
     def fixhealth(self):
         self.hp = self.maxhp
-    
-
-
-
-
-
-player = "???"
-print
-name = raw_input("What is your name!\n")
-try1 = 1
-try2 = 2
-while try2 != 1:
-    print "\n"*60
-    print "___________"
-    print
-    print "XXX D C XXX"
-    print "XXX 1.0 XXX"
-    print "___________"
-    while try1 == 1:
-        klass = raw_input('CHOOSE YOUR CLASS!!\n(1)WARRIOR\n(2)MAGE\n(3)ROUGE\n(?)ROUGE LIKE\n')
-        if klass == "1" or klass == "WARRIOR" or klass == "warrior":
-            player = warrior()
-            try1 = 0
-        elif klass == "2" or klass == "MAGE" or klass == "mage":
-            player = mage()
-            try1 = 0
-        elif klass == "3" or klass == "ROUGE" or klass == "rouge":
-            player = rouge()
-            try1 = 0
-        elif klass == "?" or klass == "ROUGE like" or klass == "rouge like":
-            player = rougel()
-            try1 = 0
-        else:
-            print "\n"*60
-            print "BUG"
-            sleep(1)
-            print "\n"*60
-            try1 = 1
-    
-    print "\n"*60
-    print "____________________________"
-    print
-    print "Your name is ", name
-    print "Your class is", player.klass
-    print "____________________________"
-    print
-    print "THESE ARE YOUR EPIC STATS!!!"
-    print "____________________________"
-    print
-    print "Health    Points:",player.hp
-    print "Streingth Points:",player.st
-    print "Magic     Points:",player.mp
-    print "Agility   Points:",player.ag
-    print "____________________________"
-    print
-    try2 = input("enter (1) if you are happy!\nAND (2) IF YOU WANT TO CHOOSE AGAAAIN!!!\n")
-    try1 = 1
+        
 ###########
 #Encounter#
 ###########
@@ -751,6 +672,84 @@ def sunTemple(player):
     elif choice1 == 2:
         print "Good job you just got smashed by a boulder and died."
     
+
+############### Intro animation
+startTimes = 3
+for times in range(0, startTimes):
+    # List with all the normal combinations
+    defaultLine = ("***********", "***********", "*** D C ***", "*** 1.0 ***", "***********", "***********")
+    # List with all the dotted combinations
+    dottedLine = ("...........", "...........", "... D C ...","... 1.0 ...", "...........", "...........")
+    reversed = [5, 4, 3, 2, 1, 0]
+    for j in range(0, 6):
+        for i in range(0, len(dottedLine)):
+            # the first time j is 0 so reversed[j] is 5
+            # when i is 5 it is the last print so it takes the dotted line from index 5
+            
+            # the secound time j is 1 so reversed[j] is 4
+            # when i is 4 it is the secound last print so it takes the dotted line from index 4
+            
+            # and so on
+            if i == reversed[j]:
+                print dottedLine[i]
+            else:
+                print defaultLine[i]
+        sleep(0.25)
+        print "\n"*60
+
+
+################# ClASS CHOICE
+player = "???"
+print
+name = raw_input("What is your name!\n")
+try1 = 1
+try2 = 2
+while try2 != 1:
+    print "\n"*60
+    print "___________"
+    print
+    print "XXX D C XXX"
+    print "XXX 1.0 XXX"
+    print "___________"
+    while try1 == 1:
+        klass = raw_input('CHOOSE YOUR CLASS!!\n(1)WARRIOR\n(2)MAGE\n(3)ROUGE\n(?)ROUGE LIKE\n')
+        if klass == "1" or klass == "WARRIOR" or klass == "warrior":
+            player = warrior()
+            try1 = 0
+        elif klass == "2" or klass == "MAGE" or klass == "mage":
+            player = mage()
+            try1 = 0
+        elif klass == "3" or klass == "ROUGE" or klass == "rouge":
+            player = rouge()
+            try1 = 0
+        elif klass == "?" or klass == "ROUGE like" or klass == "rouge like":
+            player = rougel()
+            try1 = 0
+        else:
+            print "\n"*60
+            print "BUG"
+            sleep(1)
+            print "\n"*60
+            try1 = 1
+    
+    print "\n"*60
+    print "____________________________"
+    print
+    print "Your name is ", name
+    print "Your class is", player.klass
+    print "____________________________"
+    print
+    print "THESE ARE YOUR EPIC STATS!!!"
+    print "____________________________"
+    print
+    print "Health    Points:",player.hp
+    print "Streingth Points:",player.st
+    print "Magic     Points:",player.mp
+    print "Agility   Points:",player.ag
+    print "____________________________"
+    print
+    try2 = input("enter (1) if you are happy!\nAND (2) IF YOU WANT TO CHOOSE AGAAAIN!!!\n")
+    try1 = 1
     
 ###########
 #World Map#
@@ -839,8 +838,8 @@ while player.hp > 0:
         
     else:
         print "ERROR ERROR MISSING LOCATION!!!!"
-        sleep(3)
         location = [0,0]
+        sleep(3)
 # Location that can make Agro == 0
 
 
