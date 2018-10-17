@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import time
+from time import sleep, time
 import random
 
 
@@ -24,7 +24,7 @@ for times in range(0, startTimes):
                 print dottedLine[i]
             else:
                 print defaultLine[i]
-        time.sleep(0.25)
+        sleep(0.25)
         print "\n"*60
 
 #TODO: make player classes subclasses of a master "player class".
@@ -246,7 +246,7 @@ while try2 != 1:
         else:
             print "\n"*60
             print "BUG"
-            time.sleep(1)
+            sleep(1)
             print "\n"*60
             try1 = 1
     
@@ -277,7 +277,7 @@ def encounter(player,entity):
     print "YOU ENCOUNTERED A", entity.klass, "!"
     print
 #    print entity.taunt #TODO: FIX ME
-    time.sleep(2)
+    sleep(2)
     battle(player,entity)
 
 
@@ -321,7 +321,7 @@ def jumpDuckDodge():
     #tryerPrompt = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
     print "Oh no it seems the way to the exit has taken som damage from all the shaking\n"
     for i in range(0, 7):
-        start = time.time()
+        start = time()
         event = random.choice(promptList)
         print event
         eventChoice = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
@@ -347,7 +347,7 @@ def jumpDuckDodge():
                 boulderDist -= 100
                 print "You got hit by the stone\n"
 
-        end = time.time()
+        end = time()
         if end - start > 3:
             boulderDist -= 50
         if end - start > 10:
@@ -387,23 +387,23 @@ def battle(player,entity):
         print "\n" * 60
         if attack == 1: #TODO?: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
             print "You use SLASH!!!"
-            time.sleep(1)
+            sleep(1)
             #TODO: add agility chek
             print "It was super effective!"
             entity.hp -= player.st
-            time.sleep(1)
+            sleep(1)
             print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
         elif attack == 2:
             print "You use FIREBALL!!!"
-            time.sleep(1)
+            sleep(1)
             #TODO: add agility chek
             print "It was super effective!"
-            time.sleep(1)
+            sleep(1)
             entity.hp -= player.mp
             print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
         else:
             escape = coward(player,entity)
-            time.sleep(2)
+            sleep(2)
             print "\n"*60
             if escape == 0:
                 pass
@@ -430,20 +430,20 @@ def battle(player,entity):
                     attackE = 2
         if entity.hp > 0:
             if attackE == 1:
-                time.sleep(1)
+                sleep(1)
                 print entity.klass, "used SLASH!"
-                time.sleep(1)
+                sleep(1)
                 print "it was SUPER EFFECTIVE!" #Add agility chek/roll
                 player.hp -= entity.st
-                time.sleep(1)
+                sleep(1)
                 print name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
             else:
-                time.sleep(1)
+                sleep(1)
                 print entity.klass, "used FIREBALL!"
-                time.sleep(1)
+                sleep(1)
                 print "it was SUPER EFFECTIVE!" #Add agility chek/roll
                 player.hp -= entity.mp
-                time.sleep(1)
+                sleep(1)
                 print name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
             
     if player.hp > 0:
@@ -453,12 +453,12 @@ def battle(player,entity):
         print "------------------"
         print player.xp, "/", player.maxxp
         print "------------------"
-        time.sleep(2)
+        sleep(2)
         print "\n"*60
     else:
         print "\n"*60
         print "You died."
-        time.sleep(6)
+        sleep(6)
         quit()
     if player.xp >= player.maxxp:
         print
@@ -573,10 +573,10 @@ def noob_tower(player,goblin,evil_wizard):
     yesno1 = tryer(2,"(1)Kick it in\n(2)Run away loik a poossy")
     if yesno1 == 1:
         battle(player,door)
-        time.sleep(2)
+        sleep(2)
         print "\n"*60
         print "The door swears it'll get Zer revenge,\nas it opens with an angry look about it."
-        time.sleep(6)
+        sleep(6)
         print "\n"*60
         up = 1
         upp = 1
@@ -601,7 +601,7 @@ def noob_tower(player,goblin,evil_wizard):
                 else:
                     print "\n"*60
                     print "think i heard something..."
-                    time.sleep(2)
+                    sleep(2)
             elif upp > 4 and upp < 10:
                 if encounterChanse <= 2:
                     goblin.fixhealth()
@@ -612,7 +612,7 @@ def noob_tower(player,goblin,evil_wizard):
                 else:
                     print "\n"*60
                     print "It seems like the walls are talking to me :S"
-                    time.sleep(3)
+                    sleep(3)
             elif upp >= 10:
                 print "\n"*60
                 print "----------------------------"
@@ -620,9 +620,9 @@ def noob_tower(player,goblin,evil_wizard):
                 print "----------------------------"
                 evil_wizard.is_grand()
                 print "\nin front of you stands a grand wizard."
-                time.sleep(2)
+                sleep(2)
                 print '\nWizard: "THIS IS MY LAIR! THAU SHALT NOT PASS!"\n\n'
-                time.sleep(2)
+                sleep(2)
                 battle(player,evil_wizard)
                 #TODO: chek if wizard dead, end-taunt, loot, escape
                 
@@ -630,7 +630,7 @@ def noob_tower(player,goblin,evil_wizard):
             
     else:
         print "The door Laughs at you"
-        time.sleep(2)
+        sleep(2)
         return player
     print "You climb the stairs of the tower."
     print
@@ -644,11 +644,11 @@ def arskaTown(player,arskaTown_guard):
     global arskaTownAgro
     global location
     print "Outside the village you see a sign, it says: Welcome to Arskatown"
-    time.sleep(2)
+    sleep(2)
     print "You also see a guard standing in front of you"
     if arskaTownAgro == 0:
         print "Guard: Hello there! You may enter Arskatown."
-        time.sleep(2)
+        sleep(2)
         print "You look at the guard and think: Damn I could get xp from that."
         choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
         if choice == 1:
@@ -707,10 +707,10 @@ def arskaBar():
     if choice == 1:
         print "\n"*60
         print "You are drunk"
-        time.sleep(1)
+        sleep(1)
         location = random.choice(locations)
         print "\nyou find you wake up but you don't remember getting here"
-        time.sleep(1)
+        sleep(1)
         return 1 
     elif choice == 2:
         print "You leave the bar"
@@ -726,10 +726,10 @@ def bridge(player, bridgeTroll):
         print "A troll appears from below the bridge\n"
         encounter(player, bridgeTroll)#line 265
         print "The troll growls painfully as it sinks down into the river."
-        time.sleep(2)
+        sleep(2)
     elif bridgeTroll.hp <= 0:
         print "You see a dead troll by the bridge"
-        time.sleep(2)
+        sleep(2)
         print "\n" * 60
         choice = tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
         if choice == 1:
@@ -785,7 +785,7 @@ while player.hp > 0:
             if testmove1 == 1:
                 location = [0,1]
 
-    if location == [0,1]: #Dark Tower
+    elif location == [0,1]: #Dark Tower
         print "You see a DARK TOWER!!!"
         yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
         if yesno2 == 1:
@@ -800,7 +800,7 @@ while player.hp > 0:
             elif yesno2_2 == 3:
                 location = [0,0]
 
-    if location == [1,1]: #ArskaTown
+    elif location == [1,1]: #ArskaTown
         print "\n"*60
         yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
         if yesno3 == 1:
@@ -812,10 +812,10 @@ while player.hp > 0:
             elif yesno3_2 == 2:
                 location = [0,1]
 
-    if location == [1,2]:
+    elif location == [1,2]:
         print "You have arrived to a bridge" #update later, tryer() line 265
         print "There is an old warning sign next to the bridge. it looks menacing."
-        time.sleep(4)
+        sleep(4)
         print "\n"*60
         cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
         if cross == 1:
@@ -827,23 +827,20 @@ while player.hp > 0:
             elif yesno4_2 == 2:
                 pass
 
-    if location == [2,0]: #Sun temple, check cordinates with master ;)
+    elif location == [2,0]: #Sun temple, check cordinates with master ;)
         print "You see a temple" #Improve lore
         print "You feel something strong coming from the temple, you can't resit the urge to enter."  #TODO where to next?, what if no pickup statue?
-        time.sleep(3)
+        sleep(3)
         print "\n" * 20
         print "after walking for a couple minutes you arrive at a pedestal where you see a idol, you feel a strong presence from it."
         choice = tryer(2, "Take the statue?\n(1)Yes\n(2)No\n")#line 261
         if choice == 1:
             sunTemple(player)#line 597
         
-
-
-
-
-
-    print "ERROR ERROR MISSING LOCATION!!!!"
-
+    else:
+        print "ERROR ERROR MISSING LOCATION!!!!"
+        sleep(3)
+        location = [0,0]
 # Location that can make Agro == 0
 
 
