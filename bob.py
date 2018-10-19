@@ -432,17 +432,11 @@ def coward(player,entity):
     #playerA = 0
     playerA = player.ag
     playerD = 0
-<<<<<<< HEAD
     #entityA 
     entityA = entity.ag
     entityD = 0
     
     while playerA > 0:
-=======
-    entity = entity.ag
-    entityD = 0
-    while player > 0:
->>>>>>> e5d2b8db9a9e5358ec892aec45790264e8950af9
         playerD += dice(6)
         playerA -= 1
     while entityA > 0:
@@ -607,7 +601,7 @@ def Town(player):
     while True:
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
-            pass #Healer
+            herbalist(player)
         elif choice == 2:
             drunk = 0
             drunk = arskaBar()
@@ -616,12 +610,8 @@ def Town(player):
         elif choice == 3:
             if arskaTownQuest1 == 0:
                 print "To cross the bridge you need to complete the Quest"
-<<<<<<< HEAD
                 location = [1,2]
-            if arskaTownQuest1 == 1:
-=======
             elif arskaTownQuest1 == 1:
->>>>>>> e5d2b8db9a9e5358ec892aec45790264e8950af9
                 print "Aha! i see you have the idol! you know who to show it to!"
             elif arskaTownQuest1 == 2:
                 print"You can cross the bridge"
@@ -636,11 +626,15 @@ def Town(player):
                 return player
         pass #add healer, add bridge fetch quest, add travel possibilities.
 
+def herbalist(player):
+    choice = tryer(2, "Do you want to heal?\n(1) Yes\n (2) No")
+    player.heal()
+    return player
+
 def arskaBar():
     global location
     drunk = 0 
-    locations = ([0,1],[1,1],[3,1])
-<<<<<<< HEAD
+    locations = ([0,1],[1,1],[2,0],[1,2],[0,0])
     while True:
         choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
         if choice == 1:
@@ -651,12 +645,11 @@ def arskaBar():
         if drunk == 6:
             print "\n"*60
             print "You are drunk"
-            time.sleep(1)
+            sleep(1)
             location = random.choice(locations)
             print "\nyou find you wake up but you don't remember getting here"
-            time.sleep(1)
+            sleep(1)
             return 1
-=======
     choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
     if choice == 1:
         print "\n"*60
@@ -669,7 +662,6 @@ def arskaBar():
     elif choice == 2:
         print "You leave the bar"
         return 0
->>>>>>> e5d2b8db9a9e5358ec892aec45790264e8950af9
     
 
 ########
@@ -830,13 +822,8 @@ while player.hp > 0:
             print "\n"*60
             yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
             if yesno2_2 == 1:
-<<<<<<< HEAD
                 location = [2,0]
-            if yesno2_2 == 2:
-=======
-                location = [0,2]
             elif yesno2_2 == 2:
->>>>>>> e5d2b8db9a9e5358ec892aec45790264e8950af9
                 location = [1,1]
             elif yesno2_2 == 3:
                 location = [0,0]
