@@ -312,7 +312,7 @@ def dice(num): #num -> how big a die you throw
 #################
 #jump,duck,dodge# used in sun temple line 599
 #################
-def jumpDuckDodge():
+def jumpDuckDodge(player,boulder):
     jumpPrompt = "There is a stone on the ground in your way\n"
     duckPrompt = "You see a branch att head level\n"
     dodgePrompt = "A stone falls from the ceiling\n"
@@ -354,7 +354,8 @@ def jumpDuckDodge():
             boulderDist -= 50
         if boulderDist <= 0:
             print "It seems you got rolled over by a boulder.\n"
-            player.hp = -999
+            battle(player,boulder)
+            #player.hp = -999
             return player
         print "The boulder is", boulderDist, "meters away from crushing you.\n"
     print "\n" * 60
@@ -507,16 +508,19 @@ def battle(player,entity):
 ########################
 
 def coward(player,entity):
-    player = player.ag
+    #playerA = 0
+    playerA = player.ag
     playerD = 0
-    entity = entity.ag
-    entithD = 0
-    while player > 0:
+    #entityA 
+    entityA = entity.ag
+    entityD = 0
+    
+    while playerA > 0:
         playerD += dice(6)
-        player -= 1
-    while entity > 0:
+        playerA -= 1
+    while entityA > 0:
         entityD += dice(6)
-        entity -= 1
+        entityA -= 1
         
     if playerD > entityD:
         "EZ escape"
@@ -547,7 +551,7 @@ def cave(player,goblin):
         if chanse == 1:
             print "YOU ENCOUNTERED A GOBLIN!"
             goblin.fixhealth()
-            whatdo = input("what do?\n(1)Attack it\n(2)Run away like a poossy")
+            whatdo = tryer(2,"what do?\n(1)Attack it\n(2)Run away like a poossy")
             if whatdo != 1:
                 chase = random.randint(0,1)
                 if chase == 1:
@@ -685,6 +689,7 @@ def Town(player):
         if choice == 3:
             if arskaTownQuest1 == 0:
                 print "To cross the bridge you need to complete the Quest"
+                location = [1,2]
             if arskaTownQuest1 == 1:
                 print "Aha! i see you have the idol! you know who to show it to!"
             if arskaTownQuest1 == 2:
@@ -702,19 +707,23 @@ def Town(player):
 
 def arskaBar():
     global location
+    drunk = 0 
     locations = ([0,1],[1,1],[3,1])
-    choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
-    if choice == 1:
-        print "\n"*60
-        print "You are drunk"
-        time.sleep(1)
-        location = random.choice(locations)
-        print "\nyou find you wake up but you don't remember getting here"
-        time.sleep(1)
-        return 1 
-    if choice == 2:
-        print "You leave the bar"
-        return 0
+    while True:
+        choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
+        if choice == 1:
+            drunk += 1 
+        elif choice == 2:
+            print "You leave the bar"
+            return 0
+        if drunk == 6:
+            print "\n"*60
+            print "You are drunk"
+            time.sleep(1)
+            location = random.choice(locations)
+            print "\nyou find you wake up but you don't remember getting here"
+            time.sleep(1)
+            return 1
     
 
 ########
@@ -742,14 +751,16 @@ def bridge(player, bridgeTroll):
 ############
 #Sun temple# cordinates [2,0]   check cord with master ;)     
 ############    
-def sunTemple(player):
+def sunTemple(player,boulder):
     print "After picking up the statue the ground starts shaking and you hear something huge coming towards you."        #TODO battles, pussles and other activities
     print "You probably should start running towards the exit."
     choice1 = tryer(2, "(1)Run\n(2)Stand still like a moron\n")
     if choice1 == 1:
-       jumpDuckDodge()#line 287
+       jumpDuckDodge(player,boulder)#line 287
     elif choice1 == 2:
+        battle(player,boulder)
         print "Good job you just got smashed by a boulder and died."
+        time(3)
     
     
 ###########
@@ -766,6 +777,7 @@ goblin = goblin()
 door = large_door() #in DarkTower
 arskaTown_guard = arskaTown_guard()
 bridgeTroll = bridgeTroll()
+boulder = boulder()
 while player.hp > 0:
     print "\n"*60
     print "-----------\n|OVERWORLD|\n-----------"
@@ -794,7 +806,7 @@ while player.hp > 0:
             print "\n"*60
             yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
             if yesno2_2 == 1:
-                location = [0,2]
+                location = [2,0]
             if yesno2_2 == 2:
                 location = [1,1]
             if yesno2_2 == 3:
@@ -839,7 +851,7 @@ while player.hp > 0:
         print "after walking for a couple minutes you arrive at a pedestal where you see a idol, you feel a strong presence from it."
         choice = tryer(2, "Take the statue?\n(1)Yes\n(2)No\n")#line 261
         if choice == 1:
-            sunTemple(player)#line 597
+            sunTemple(player,boulder)#line 597
         
 
 
