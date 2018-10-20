@@ -705,25 +705,22 @@ def sunTemple(player,boulder):
 ###########
 #
 def inventory(var_inventory):
-    choice = tryer(2, "(1)Drop an item\n(2)Use an item\n")
-    # prints inventory
+    choice = tryer(3, "(1)Drop an item\n(2)Use an item\n(3)Check inventory\n")
     for i in range(len(var_inventory)):
         print i+1 ,var_inventory[i]
-        
     if choice == 1:
         choice = tryer(len(var_inventory), "Enter number of item to drop")
         var_inventory.pop(choice-1)
     elif choice == 2:
         choice = tryer(len(var_inventory), "Enter number of item to use")
         print item_values[var_inventory[choice-1]]
-        # ASSIGN VALUES TO WHERE THEY SHOULD GO from item_values[var_inventory[choice-1]]
+        # ASSIGN VALUES TO WHERE THEY SHOULD GO
         
         
         # remove item once used
         var_inventory.pop(choice-1)
-    # prints inventory
-    for i in range(len(var_inventory)):
-        print i+1 ,var_inventory[i]
+    elif choice == 3:
+        raw_input("Press enter to leave")
 
 # PRE DEFINED ITEMS
 # TEST items               EX   NAME/ atk/ag/hp/mana
