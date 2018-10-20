@@ -700,6 +700,55 @@ def sunTemple(player,boulder):
         print "Good job you just got smashed by a boulder and died."
         time(3)
     
+###########
+# INVENTORY
+###########
+#
+def inventory(var_inventory):
+    choice = tryer(2, "(1)Drop an item\n(2)Use an item\n")
+    # prints inventory
+    for i in range(len(var_inventory)):
+        print i+1 ,var_inventory[i]
+        
+    if choice == 1:
+        choice = tryer(len(var_inventory), "Enter number of item to drop")
+        var_inventory.pop(choice-1)
+    elif choice == 2:
+        choice = tryer(len(var_inventory), "Enter number of item to use")
+        print item_values[var_inventory[choice-1]]
+        # ASSIGN VALUES TO WHERE THEY SHOULD GO from item_values[var_inventory[choice-1]]
+        
+        
+        # remove item once used
+        var_inventory.pop(choice-1)
+    # prints inventory
+    for i in range(len(var_inventory)):
+        print i+1 ,var_inventory[i]
+
+# PRE DEFINED ITEMS
+# TEST items               EX   NAME/ atk/ag/hp/mana
+item_values = {'HP POT':['HP POT',0,0,15,0],
+               'MANA POT':['MANA POT',0,0,0,10], 
+               'BEER':['BEER',5,-5,0,0], 
+               'BEEF':['BEEF',0,0,100,0]}
+
+
+var_inventory = []
+var_inventory.append("HP POT") 
+var_inventory.append("MANA POT")
+var_inventory.append("BEER")
+var_inventory.append("BEEF")
+
+# USE FOR DEBUGGING
+#for i in var_inventory:
+#    print str(i)
+#sleep(3)
+#
+#inventory(var_inventory)
+
+#
+# Use the code on the below row when you want to use or drop item 
+# inventory(var_inventory)
 
 ############### Intro animation
 startTimes = 3
@@ -778,7 +827,10 @@ while try2 != 1:
     print
     try2 = input("enter (1) if you are happy!\nAND (2) IF YOU WANT TO CHOOSE AGAAAIN!!!\n")
     try1 = 1
-    
+
+
+
+
 ###########
 #World Map#
 ###########
