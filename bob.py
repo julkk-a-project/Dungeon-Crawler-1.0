@@ -28,7 +28,7 @@ class warrior:
     maxxp = (level * 3) ** 2
     maxhp = 15
     hp = maxhp
-    st = 50
+    st = 5
     mp = 0
     ag = 1
     xp = maxhp + st + mp + ag
