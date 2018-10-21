@@ -841,7 +841,10 @@ class game:
         self.boulder = self.boulder()
         while self.player.hp > 0:
             print "\n"*60
-            print "-----------\n|OVERWORLD|\n-----------"
+            print " _________"
+            print "/         \\"
+            print "|OVERWORLD|"
+            print "\_________/"
 
             if self.location == [0,0]: #NoobCave
                 print "You see a cave!"
