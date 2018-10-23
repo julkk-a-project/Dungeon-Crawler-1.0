@@ -210,11 +210,13 @@ class game:
     #Choice handler#
     ################
 
-    def tryer(self, num,string):
+    def tryer(self, num,string,is_inventory = 0):
         while True:
             print string
+            if is_inventory != 1:
+                print "(A)open inventory"
             try:
-                trynum = input("You chose: ")
+                trynum = input(" You chose: ")
                 if trynum >= 1 and trynum <= num:
                     if type(trynum) == type(1):
                         print "\n"*60
@@ -222,7 +224,10 @@ class game:
                 else:
                     print "try an advertised number"
             except:
-                print "Try a number, fool"
+                if is_inventory != 1:
+                    self.inventory(self, var_inventory)
+                else:
+                    print "Try a number, fool"
             
 
     #############
@@ -428,7 +433,7 @@ class game:
         print "\nbattle ended\n"
                 
     ########################
-    #Run awaay loik a poosy# TODO: make more complex
+    #Run awaay loik a poosy#
     ########################
 
     def coward(self, player,entity):
@@ -445,9 +450,12 @@ class game:
         while entityA > 0:
             entityD += self.dice(6)
             entityA -= 1
-            
+
+        print "you got", playerD
+        print "The", entity.klass, "got", entityD
+        
         if playerD > entityD:
-            "EZ escape"
+            print "EZ escape"
             return 1
         elif playerD == entityD:
             test2 = self.dice(2)
@@ -768,7 +776,7 @@ class game:
                 print "\n"*60
 
 
-        ################# ClASS CHOICE
+        ################# CLASS CHOICE
         self.player = "???"
         print
         self.name = raw_input("What is your name!\n")
