@@ -111,6 +111,7 @@ class game:
             sleep(2)
         def fixhealth(self):
             self.hp = self.maxhp
+        #TODO: add a base "animation".
         
 
 
@@ -229,7 +230,8 @@ class game:
     #Encounter#
     ###########
     def encounter(self, player,entity):
-        
+
+        #TODO: add short animation to all entities
         print "\n"*60
         print "YOU ENCOUNTERED A", entity.klass, "!"
         print
@@ -329,10 +331,13 @@ class game:
            
             
         
-           
-    ###############
-    #Battle system#
-    ###############
+#\                            ___Help!___
+# \  - -\   #*#*#*#*#*#*#*#  |    \0/    |  #*#*#*#*#*#*#*#
+# >> - -<>  # B a t t l e #  | Ver X Sus |  # s y s t e m #
+# /  - -/   #*#*#*#*#*#*#*#  |____/ \____|  #*#*#*#*#*#*#*#
+#/
+
+    
     def battle(self, player,entity):
         print "\n"*60
         print "_______________"
@@ -349,22 +354,40 @@ class game:
             print "--------------------------\n"
             attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
             print "\n" * 60
+
+
+                #PLAYER ATTACK HANDLER
+
+            
+                    #PLAYER STREINGTH ATTACK
             if attack == 1: #TODO?: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
                 print "You use SLASH!!!"
-                sleep(1)
-                #TODO: add agility chek
-                print "It was super effective!"
-                entity.hp -= player.st
+                sleep(0.5)
+                playerHit = self.agChek(player,entity)
+                if playerHit == 1:
+                    print "It was super effective!"
+                    entity.hp -= player.st
+                else:
+                    print "The", entity.klass, "dodged your attack!!!"
                 sleep(1)
                 print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                    #PLAYER MAGIC ATTACK
             elif attack == 2:
                 print "You use FIREBALL!!!"
+                sleep(0.5)
+                playerHit = self.agChek(player,entity)
+                if playerHit == 1:
+                    print "It was super effective!"
+                    entity.hp -= player.mp
+                else:
+                    print "The", entity.klass, "dodged your attack!!!"
                 sleep(1)
-                #TODO: add agility chek
-                print "It was super effective!"
-                sleep(1)
-                entity.hp -= player.mp
                 print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                    #PLAYER BEING A PUSSY
             else:
                 escape = self.coward(player,entity)
                 sleep(2)
@@ -373,6 +396,10 @@ class game:
                     pass
                 if escape == 1:
                     return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
+
+
+
+                #ENTITY ATTACK HANDLER
                 
             if entity.st > entity.mp: #Simple "AI" to make the AI use weiged random attacks
                 if entity.mp <= 0:
@@ -393,23 +420,44 @@ class game:
                     else:
                         attackE = 2
             if entity.hp > 0:
-                if attackE == 1:
-                    sleep(1)
-                    print entity.klass, "used SLASH!"
-                    sleep(1)
-                    print "it was SUPER EFFECTIVE!" #Add agility chek/roll
-                    player.hp -= entity.st
-                    sleep(1)
-                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
-                else:
-                    sleep(1)
-                    print entity.klass, "used FIREBALL!"
-                    sleep(1)
-                    print "it was SUPER EFFECTIVE!" #Add agility chek/roll
-                    player.hp -= entity.mp
-                    sleep(1)
-                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+
+
+                    #ENEMY STREINGTH ATTACK
                 
+                if attackE == 1:
+                    #sleep(1)
+                    print entity.klass, "used SLASH!"
+                    sleep(0.5)
+                    playerDodge = self.agChek(entity, player)
+                    if playerDodge == 1:
+                        print "it was SUPER EFFECTIVE!" #Add agility chek/roll
+                        player.hp -= entity.st
+                    else:
+                        print "You dodged the attack"
+                    sleep(1)
+                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+
+
+                    #ENEMY MAGIC ATTACK
+                
+                else:
+                    #sleep(1)
+                    print entity.klass, "used FIREBALL!"
+                    sleep(0.5)
+                    playerDodge = self.agChek(entity, player)
+                    if playerDodge == 1:
+                        print "it was SUPER EFFECTIVE!" #Add agility chek/roll
+                        player.hp -= entity.mp
+                    sleep(1)
+                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+
+
+
+
+         #-#-#-#-#-#
+        # Level up! #
+         #-#-#-#-#-#
+
         if player.hp > 0:
             player.xp += entity.xp
             print "\n"
@@ -503,6 +551,47 @@ class game:
             print "You're worthless at running"
             return 0
 
+                
+    #######################
+    #DIRTY COPY OF RUNNING# <-- aka agility chek for attack. (USE WHEN WANT TO CHEK AGILITY W/O RANDOM TEXTS)
+    #######################     TODO: Could be combined with "coward(X,Y)"
+
+    def agChek(self, attacker,defender): #return 1 if hit, 0 if miss.
+        print "----------------------------------------------------"
+        playerA = attacker.ag #TODO: change player variable to attacker
+        playerD = 0
+        entityA = defender.ag #TODO: change entity variable to defender
+        entityD = 0
+        
+        while playerA > 0:
+            playerD += self.dice(6)
+            playerA -= 1
+        while entityA > 0:
+            entityD += self.dice(6)
+            entityA -= 1
+
+        print attacker.klass, "got", playerD
+        print defender.klass, "got", entityD
+        entityD == entityD * 0.5
+        print "Dodge modifier changes defender's value to", entityD
+        print "----------------------------------------------------"
+        sleep(1)
+        
+        if playerD > entityD:
+            print "EZ Hit"
+            return 1
+        elif playerD == entityD:
+            test2 = self.dice(2)
+            if test2 == 1:
+                print attacker.klass, "barely hit"
+                return 1
+            else:
+                print attacker.klass, "tripped"
+                return 0
+        elif playerD < entityD:
+            print attacker.klass, "Is worthless at aiming"
+            return 0
+
 
     ###########
     #Noob Cave# cordinates (0,0)
@@ -515,22 +604,9 @@ class game:
             chanse = randint(0,5)
             chanse = 1 # since 1 is the only thing that allows the program to continue might as well save resourcess till some other events are added
             if chanse == 1:
-                print "YOU ENCOUNTERED A GOBLIN!"
                 self.goblin.fixhealth()
-                whatdo = self.tryer(2,"what do?\n(1)Attack it\n(2)Run away like a poossy")
-                if whatdo == 2:
-                    chase = randint(0,1)
-                    if chase == 1:
-                        print "HA-HA IT FOLLOWED YOU!!!"
-                        sleep(3)
-                        self.battle(self.player,self.goblin)
-                    else:
-                        print "You sucessfully escaped"
-                        sleep(3)
-                        return
-                elif whatdo == 1:
-                    self.battle(self.player,self.goblin)
-                    
+                self.encounter(self.player,self.goblin)
+                print "\n"*60
                 choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
                 if choice == 2:
                     return
@@ -708,14 +784,20 @@ class game:
     #Bridge# cordinates (1,2)
     ########
     def bridge(self):
+        justKilled = 0 #so troll status isn't displayed 2x
         if self.bridgeTroll.hp > 0:
             print "A troll appears from below the bridge\n"
             self.encounter(self.player, self.bridgeTroll)#line 265
-            print "The troll growls painfully as it sinks down into the river."
-            sleep(2)
-        elif self.bridgeTroll.hp <= 0:
-            print "You see a dead troll by the bridge"
-            sleep(2)
+            if self.bridgeTroll.hp <= 0:
+                print "The troll growls painfully as it sinks down into the river."
+                justKilled = 1
+                sleep(2)
+            else:
+                return
+        if self.bridgeTroll.hp <= 0:
+            if justKilled != 1:
+                print "You see a dead troll by the bridge"
+                sleep(2)
             print "\n" * 60
             choice = self.tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
             if choice == 1:
@@ -724,8 +806,9 @@ class game:
             elif choice == 2:
                 self.location = [3,1] # returns value to location
                 return
+
     ############
-    #Sun temple# cordinates [2,0]   check cord with master ;)     
+    #Sun temple# cordinates [2,0]     
     ############    
     def sunTemple(self, player,boulder):
         print "After picking up the statue the ground starts shaking and you hear something huge coming towards you."        #TODO battles, pussles and other activities
