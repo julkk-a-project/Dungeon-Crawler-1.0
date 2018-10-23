@@ -7,8 +7,14 @@ from random import choice as ranchoice
 class game:
     def __init__(self):
         self.main()
+
+
+################
+#PLAYER CLASSES#
+################
+
     #TODO: make player classes subclasses of a master "player class".
-    class baseplayer:
+    class basePlayer:
         level = 1
         maxxp = (level * 3) ** 2
         maxhp = 1
@@ -21,9 +27,6 @@ class game:
             self.hp = self.maxhp
         def setXp(self):
             self.maxxp = (self.level * 3) ** 2
-        
-        
-
 
     class warrior:
         klass = "Warrior"
@@ -70,40 +73,89 @@ class game:
         def setXp(self):
             self.maxxp = (self.level * 3) ** 2
 
-    class goblin:
-        klass = "Goblin"
+    class rougel:
+        def __init__(self):
+            self.klass = "RougeLike"
+            self.level = 1
+            self.maxxp = (self.level * 3) ** 2
+            self.maxhp = randint(8,20)
+            self.hp = self.maxhp
+            self.st = randint(1,5)
+            self.mp = randint(0,5)
+            self.ag = randint(1,3)
+            self.xp = self.maxhp + self.st + self.mp + self.ag
+        def heal(self):
+            self.hp = self.maxhp
+        def setXp(self):
+            self.maxxp = (self.level * 3) ** 2
+
+
+################
+#ENTITY CLASSES#
+################
+
+
+    #TODO: make entity classes subclasses of a master "entity class".
+    class baseEntity:
+        klass = "???"
         level = 1
         maxxp = (level * 3) ** 2
-        maxhp = 5
+        maxhp = 1
         hp = maxhp
         st = 1
         mp = 0
         ag = 1
         xp = maxhp + st + mp + ag
+        def taunt(self):
+            print '"Taunt"'
+            sleep(2)
         def fixhealth(self):
+            self.hp = self.maxhp
+        
+
+
+
+    class goblin:
+        klass = "Goblin"
+        level = 1 #unnecesary when subclass
+        maxxp = (level * 3) ** 2 #unnecesary when subclass
+        maxhp = 5
+        hp = maxhp #unnecesary when subclass
+        st = 1 #unnecesary when subclass
+        mp = 0 #unnecesary when subclass
+        ag = 1 #unnecesary when subclass
+        xp = maxhp + st + mp + ag #?unnecesary when subclass?
+        def fixhealth(self): #unnecesary when subclass
             self.hp = self.maxhp
 
 
-    class evil_wizard:
+    class evil_wizard: #Use only in drak tower
         klass = "Evil Wizard"
         level = 3
-        maxxp = (level * 3) ** 2
+        maxxp = (level * 3) ** 2 #unnecesary when subclass
         maxhp = 10
-        hp = maxhp
+        hp = maxhp #unnecesary when subclass
         st = 2
         mp = 4
-        ag = 1
-        xp = maxhp + st + mp + ag
+        ag = 1 #unnecesary when subclass
+        xp = maxhp + st + mp + ag #?unnecesary when subclass?
+        grand = False
         def fixhealth(self):
-            self.hp = self.maxhp
+            if self.grand != True:
+                self.hp = self.maxhp
+            else:
+                print "The Grand Wizard uses a minor healing spell"
+                self.hp += 1
         def is_grand(self):
+            self.grand = True
             self.klass = "GRAND Wizard"
             self.level = 45
             self.maxhp = 50
             self.hp = 50
             self.mp = 5
+            
 
-    class bridgeTroll:
+    class bridgeTroll: #Bridge troll should stay dead when killed. maybe affect dialouges in ArskaTown when dead.
         klass = "Bridge Troll"
         
         level = 15
@@ -124,35 +176,16 @@ class game:
         maxxp = (level * 3) ** 2
         maxhp = 10
         hp = maxhp
-        st = 1
+        st = 1 #TODO: change if new damage type is added. maybe a defensive stat that affects when fysical damage is used
         mp = 0
         ag = 0
         xp = maxhp + st + mp + ag
         def fixhealth(self):
             self.hp = self.maxhp
-        
-        
-    class rougel:
-        def __init__(self):
-            self.klass = "RougeLike"
-            self.level = 1
-            self.maxxp = (self.level * 3) ** 2
-            self.maxhp = randint(8,20)
-            self.hp = self.maxhp
-            self.st = randint(1,5)
-            self.mp = randint(0,5)
-            self.ag = randint(1,3)
-            self.xp = self.maxhp + self.st + self.mp + self.ag
-        def heal(self):
-            self.hp = self.maxhp
-        def setXp(self):
-            self.maxxp = (self.level * 3) ** 2
-
 
 
     class arskaTown_guard:
         klass = "ArskaTown Guard"
-        
         level = 5
         maxxp = (level * 3) ** 2
         maxhp = 15
@@ -172,7 +205,7 @@ class game:
         maxhp = 9001
         hp = maxhp
         st = 9001
-        mp = 9001 #AAAAAAAAAAAAAAAAAAAAAAAAAAAH!!!
+        mp = 0 #AAAAAAAAAAAAAAAAAAAAAAAAAAAH!!!
         ag = 9001
         xp = 9001
         def fixhealth(self):
@@ -200,8 +233,8 @@ class game:
         print "\n"*60
         print "YOU ENCOUNTERED A", entity.klass, "!"
         print
-    #    print entity.taunt #TODO: FIX ME
-        sleep(2)
+        #entity.taunt #TODO: ADD ME WHEN ENTITIES ARE SUBCLASSES OF baseEntity.
+        sleep(2) #TODO: remove this, and place into the baseEntity when it's done.
         self.battle(player,entity)
 
 
@@ -215,17 +248,18 @@ class game:
             print string
             if is_inventory != 1:
                 print "(A)open inventory"
+            else:
+                print "--IN INVENTORY--"
             try:
-                trynum = input(" You chose: ")
+                trynum = input("   You chose: ")
                 if trynum >= 1 and trynum <= num:
                     if type(trynum) == type(1):
-                        print "\n"*60
                         return trynum
                 else:
                     print "try an advertised number"
             except:
                 if is_inventory != 1:
-                    self.inventory(self.main, self.main.var_inventory)
+                    self.inventory()
                 else:
                     print "Try a number, fool"
             
@@ -708,22 +742,26 @@ class game:
     # INVENTORY
     ###########
     #
-    def inventory(self, var_inventory):
-        choice = self.tryer(3, "(1)Drop an item\n(2)Use an item\n(3)Check inventory\n")
-        for i in range(len(var_inventory)):
-            print i+1 ,var_inventory[i]
-        if choice == 1:
-            choice = self.tryer(len(var_inventory), "Enter number of item to drop")
-            var_inventory.pop(choice-1)
-        elif choice == 2:
-            choice = self.tryer(len(var_inventory), "Enter number of item to use")
-            print item_values[var_inventory[choice-1]]
+    def inventory(self):
+        
+        if len(self.var_inventory) != 0: #If inventory empty, can't drop
+            choice = self.tryer(3, "(1)Use an item\n(2)Check inventory\n(3)Drop an item",1)
+        else:
+            choice = self.tryer(2, "(1)Use an item\n(2)Check inventory",1)
+        for i in range(len(self.var_inventory)):
+            print i+1 ,self.var_inventory[i]
+        if choice == 3:
+            choice = self.tryer(len(self.var_inventory), "Which item to drop",1)
+            self.var_inventory.pop(choice-1) #TODO: Can you drop multiples if more than one?
+        elif choice == 1:
+            choice = self.tryer(len(self.var_inventory), "Enter number of item to use",1)
+            print item_values[self.var_inventory[choice-1]]
             # ASSIGN VALUES TO WHERE THEY SHOULD GO
             
             
             # remove item once used
-            var_inventory.pop(choice-1)
-        elif choice == 3:
+            self.var_inventory.pop(choice-1)
+        elif choice == 2:
             raw_input("Press enter to leave")
 
     def main(self):
@@ -735,11 +773,11 @@ class game:
                        'BEEF':['BEEF',0,0,100,0]}
 
 
-        var_inventory = []
-        var_inventory.append("HP POT") 
-        var_inventory.append("MANA POT")
-        var_inventory.append("BEER")
-        var_inventory.append("BEEF")
+        self.var_inventory = []
+        self.var_inventory.append("HP POT") 
+        self.var_inventory.append("MANA POT")
+        self.var_inventory.append("BEER")
+        self.var_inventory.append("BEEF")
 
         # USE FOR DEBUGGING
         #for i in var_inventory:
@@ -751,7 +789,10 @@ class game:
         # Use the code on the below row when you want to use or drop item 
         # inventory(var_inventory)
 
-        ############### Intro animation
+
+
+
+        ############### Intro animation #TODO: make intro animation "grow", staring from just "D C" and "1.0", then the other stuff comes into existance. maybe with dots where it "grows", and then turn into "#".
         startTimes = 1
         for times in range(0, startTimes):
             # List with all the normal combinations
