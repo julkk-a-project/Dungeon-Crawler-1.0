@@ -225,7 +225,7 @@ class game:
                     print "try an advertised number"
             except:
                 if is_inventory != 1:
-                    self.inventory(self, var_inventory)
+                    self.inventory(self.main, self.main.var_inventory)
                 else:
                     print "Try a number, fool"
             
@@ -752,7 +752,7 @@ class game:
         # inventory(var_inventory)
 
         ############### Intro animation
-        startTimes = 3
+        startTimes = 1
         for times in range(0, startTimes):
             # List with all the normal combinations
             defaultLine = ("***********", "***********", "*** D C ***", "*** 1.0 ***", "***********", "***********")
