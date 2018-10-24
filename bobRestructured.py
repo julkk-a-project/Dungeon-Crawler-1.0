@@ -229,7 +229,7 @@ class game:
     ###########
     #Encounter#
     ###########
-    def encounter(self, player,entity):
+    def encounter(self, player,entity,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
 
         #TODO: add short animation to all entities
         print "\n"*60
@@ -237,7 +237,7 @@ class game:
         print
         #entity.taunt #TODO: ADD ME WHEN ENTITIES ARE SUBCLASSES OF baseEntity.
         sleep(2) #TODO: remove this, and place into the baseEntity when it's done.
-        self.battle(player,entity)
+        self.battle(player,entity,entity2,entity3,entity4,entity5)
 
 
 
@@ -338,64 +338,95 @@ class game:
 #/
 
     
-    def battle(self, player,entity):
+    def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
+            #Multiple enemy handler
+        test = "" #to test if entity is an actual entity
+        listA = [entity2,entity3,entity4,entity5]
+        listE = [entity1] #entity1 is always an entity. you can't encounter zero entities.
+        emptyList = [] #To compare with listE in while loop
+        for i in listA:
+            try:
+                test += i.klass
+                listE.append(i)
+                print listE.klass
+            except:
+                print "removed", i
+        
+
+
+        
         print "\n"*60
         print "_______________"
         print
         print "BATTLE STARTED!"
         print "_______________"
         print
-        print "you are figthing a level", entity.level, entity.klass
+        print "you are figthing:"
+        for i in listE:
+            print i.klass, "lvl", i.level
         print "_______________"
         print
-        while player.hp > 0 and entity.hp > 0:
+        while player.hp > 0 and listE != emptyList:
             print "--------------------------"
             print self.name, "health:", player.hp, "/", player.maxhp
             print "--------------------------\n"
-            attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
-            print "\n" * 60
+
+
+
+
 
 
                 #PLAYER ATTACK HANDLER
-
             
-                    #PLAYER STREINGTH ATTACK
-            if attack == 1: #TODO?: add hint at how much hp the enemy has (as in for example 75% of maxhp would be one level and 50% would be an other and so on.
-                print "You use SLASH!!!"
-                sleep(0.5)
-                playerHit = self.agChek(player,entity)
-                if playerHit == 1:
-                    print "It was super effective!"
-                    entity.hp -= player.st
+            numb1 = 0
+            for i in listE:
+                numb1 += 1
+                print "("+str(numb1)+")"+"lvl", i.level, i.klass, "["+str(i.hp)+"/"+str(i.maxhp)+"]" #Display enemy names and hp
+            numb1 = 0
+            
+            entityNum = self.tryer(len(listE),"which entity do you want to attack from 1 - 5?\n") #TODO: make special adjustment to tryer to make this look beautiful
+            for entity in listE[entityNum - 1]:
+
+                attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
+                print "\n" * 60
+                
+                        #PLAYER STREINGTH ATTACK
+                if attack == 1:
+                    print "You use SLASH!!!"
+                    sleep(0.5)
+                    playerHit = self.agChek(player,entity)
+                    if playerHit == 1:
+                        print "It was super effective!"
+                        entity.hp -= player.st
+                    else:
+                        print "The", entity.klass, "dodged your attack!!!"
+                    sleep(1)
+                    print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                        #PLAYER MAGIC ATTACK
+                elif attack == 2:
+                    print "You use FIREBALL!!!"
+                    sleep(0.5)
+                    playerHit = self.agChek(player,entity)
+                    if playerHit == 1:
+                        print "It was super effective!"
+                        entity.hp -= player.mp
+                    else:
+                        print "The", entity.klass, "dodged your attack!!!"
+                    sleep(1)
+                    print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                        #PLAYER BEING A PUSSY
                 else:
-                    print "The", entity.klass, "dodged your attack!!!"
-                sleep(1)
-                print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
-
-
-                    #PLAYER MAGIC ATTACK
-            elif attack == 2:
-                print "You use FIREBALL!!!"
-                sleep(0.5)
-                playerHit = self.agChek(player,entity)
-                if playerHit == 1:
-                    print "It was super effective!"
-                    entity.hp -= player.mp
-                else:
-                    print "The", entity.klass, "dodged your attack!!!"
-                sleep(1)
-                print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
-
-
-                    #PLAYER BEING A PUSSY
-            else:
-                escape = self.coward(player,entity)
-                sleep(2)
-                print "\n"*60
-                if escape == 0:
-                    pass
-                if escape == 1:
-                    return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
+                    escape = self.coward(player,entity)
+                    sleep(2)
+                    print "\n"*60
+                    if escape == 0:
+                        pass
+                    if escape == 1:
+                        return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
 
 
 
@@ -572,7 +603,7 @@ class game:
 
         print attacker.klass, "got", playerD
         print defender.klass, "got", entityD
-        entityD == entityD * 0.5
+        entityD == float(entityD) * 0.5
         print "Dodge modifier changes defender's value to", entityD
         print "----------------------------------------------------"
         sleep(1)
@@ -605,7 +636,7 @@ class game:
             chanse = 1 # since 1 is the only thing that allows the program to continue might as well save resourcess till some other events are added
             if chanse == 1:
                 self.goblin.fixhealth()
-                self.encounter(self.player,self.goblin)
+                self.encounter(self.player,self.goblin,self.evil_wizard)
                 print "\n"*60
                 choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
                 if choice == 2:
