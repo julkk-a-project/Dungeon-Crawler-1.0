@@ -723,7 +723,6 @@ class game:
                 return arskaTownAgro
                 
     def Town(self):
-        global arskaTownQuest1
         while True:
             choice = self.tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
             if choice == 1:
@@ -734,13 +733,13 @@ class game:
                 if drunk == 1:
                     return
             elif choice == 3:
-                if arskaTownQuest1 == 0:
+                if self.arskaTownQuest1 == 0:
                     print "To cross the bridge you need to complete the Quest"
                     self.location = [1,2]
                     return 
-                elif arskaTownQuest1 == 1:
+                elif self.arskaTownQuest1 == 1:
                     print "Aha! i see you have the idol! you know who to show it to!"
-                elif arskaTownQuest1 == 2:
+                elif self.arskaTownQuest1 == 2:
                     print"You can cross the bridge"
                     self.location = [1,2]
                     return
@@ -963,7 +962,7 @@ class game:
 
         self.location = [0,0]
         arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
-        arskaTownQuest1 = 0 #0 -> fetchquest not taken yet. 1 -> fetchquest taken. 2 -> fetchquest finnished(allow crossing to bridge)
+        self.arskaTownQuest1 = 0 #0 -> fetchquest not taken yet. 1 -> fetchquest taken. 2 -> fetchquest finnished(allow crossing to bridge)
         self.darkTowerBoss = 1 #1 -> boss alive. 0 -> boss killed and loot collected
         self.evil_wizard = self.evil_wizard()
         self.goblin = self.goblin()
