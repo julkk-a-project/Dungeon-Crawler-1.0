@@ -379,170 +379,270 @@ class game:
                 #PLAYER ATTACK HANDLER
             
             numb1 = 0
-            for i in listE:
-                numb1 += 1
-                print "("+str(numb1)+")"+"lvl", i.level, i.klass, "["+str(i.hp)+"/"+str(i.maxhp)+"]" #Display enemy names and hp
-            numb1 = 0
-            
-            entityNum = self.tryer(len(listE),"which entity do you want to attack from 1 - 5?\n") #TODO: make special adjustment to tryer to make this look beautiful
-            for entity in listE[entityNum - 1]:
-
-                attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
-                print "\n" * 60
+            if len(listE) > 0:
+                for i in listE:
+                    numb1 += 1
+                    print "("+str(numb1)+")"+"lvl", i.level, i.klass, "["+str(i.hp)+"/"+str(i.maxhp)+"]" #Display enemy names and hp
+                numb1 = 0
                 
-                        #PLAYER STREINGTH ATTACK
-                if attack == 1:
-                    print "You use SLASH!!!"
-                    sleep(0.5)
-                    playerHit = self.agChek(player,entity)
-                    if playerHit == 1:
-                        print "It was super effective!"
-                        entity.hp -= player.st
-                    else:
-                        print "The", entity.klass, "dodged your attack!!!"
-                    sleep(1)
-                    print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
-
-
-                        #PLAYER MAGIC ATTACK
-                elif attack == 2:
-                    print "You use FIREBALL!!!"
-                    sleep(0.5)
-                    playerHit = self.agChek(player,entity)
-                    if playerHit == 1:
-                        print "It was super effective!"
-                        entity.hp -= player.mp
-                    else:
-                        print "The", entity.klass, "dodged your attack!!!"
-                    sleep(1)
-                    print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
-
-
-                        #PLAYER BEING A PUSSY
-                else:
-                    escape = self.coward(player,entity)
-                    sleep(2)
-                    print "\n"*60
-                    if escape == 0:
-                        pass
-                    if escape == 1:
-                        return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
-
-
-
-                #ENTITY ATTACK HANDLER
-                
-            if entity.st > entity.mp: #Simple "AI" to make the AI use weiged random attacks
-                if entity.mp <= 0:
-                    attackE = 1
-                else:
-                    humanizer = self.dice(3)
-                    if humanizer == 3:
-                        attackE = 2
-                    else:
-                        attackE = 1
+                entityNum = self.tryer(len(listE),"which entity do you want to attack from 1 - 5?\n") #TODO: make special adjustment to tryer to make this look beautiful
+                entity = listE[entityNum-1]
             else:
-                if entity.st <= 0:
-                    attackE = 2
+                break
+
+            attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
+            print "\n" * 60
+            
+                    #PLAYER STREINGTH ATTACK
+            if attack == 1:
+                print "You use SLASH!!!"
+                sleep(0.5)
+                playerHit = self.agChek(player,entity)
+                if playerHit == 1:
+                    print "It was super effective!"
+                    entity.hp -= player.st
                 else:
-                    humanizer = self.dice(3)
-                    if humanizer == 3:
+                    print "The", entity.klass, "dodged your attack!!!"
+                sleep(1)
+                print "The", entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                    #PLAYER MAGIC ATTACK
+            elif attack == 2:
+                print "You use FIREBALL!!!"
+                sleep(0.5)
+                playerHit = self.agChek(player,entity)
+                if playerHit == 1:
+                    print "It was super effective!"
+                    entity.hp -= player.mp
+                else:
+                    print "The", entity.klass, "dodged your attack!!!"
+                sleep(1)
+                print entity.klass, "has", entity.hp, "/", entity.maxhp, "health" + "\n"
+
+
+                    #PLAYER BEING A PUSSY
+            else:
+                escape = self.coward(player,entity)
+                sleep(2)
+                print "\n"*60
+                if escape == 0:
+                    pass
+                if escape == 1:
+                    return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
+
+
+
+             #-#-#-#-#-#-#-#
+            # XP and Death! #
+             #-#-#-#-#-#-#-#
+
+            if player.hp > 0:
+                player.xp += entity.xp
+                print "\n"
+                print "Leveling progress:"
+                print "------------------"
+                print player.xp, "/", player.maxxp
+                print "------------------"
+                sleep(2)
+                print "\n"*60
+            else:
+                print "\n"*60
+                print "You died."
+                sleep(6)
+                quit()
+        
+                #dead entity eliminator
+            indexMem = -1
+            for i in listE:
+                indexMem += 1
+                if i.hp <= 0:
+                    listE.remove(entity)
+
+
+             #-#-#-#-#-#
+            # Level up! #
+             #-#-#-#-#-#
+
+
+                
+            if player.xp >= player.maxxp:
+                print
+                print
+                print "YOU LEVELED UP!"
+                print "____________________________"
+                print
+                print "Level", player.level, player.klass
+                print "____________________________"
+                print
+                print "THESE ARE YOUR EPIC STATS!!!"
+                print "____________________________"
+                print
+                print "Health    Points:",player.hp, "/", player.maxhp
+                print "Streingth Points:",player.st
+                print "Magic     Points:",player.mp
+                print "Agility   Points:",player.ag
+                print "____________________________"
+                print
+                player.level += 1
+                trystat = 1
+                while trystat == 1:
+                    statplus = self.tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
+                    healpoints = player.maxhp
+                    if statplus == 1:
+                        player.maxhp += 1
+                        player.hp += 1
+                        trystat = 0
+                    elif statplus == 2:
+                        player.st += 1
+                        trystat = 0
+                    elif statplus == 3:
+                        player.mp += 1
+                        trystat = 0
+                    elif statplus == 4:
+                        player.ag += 1
+                        trystat = 0
+                    else:
+                        print "my nibba, try an advertised number!"
+                player.xp -= player.maxxp
+                player.setXp()
+
+
+
+
+
+            for i in range(len(listE)):
+                entity = listE[i-1]
+
+                    #ENTITY ATTACK HANDLER
+                    
+                if entity.st > entity.mp: #Simple "AI" to make the AI use weiged random attacks
+                    if entity.mp <= 0:
                         attackE = 1
                     else:
+                        humanizer = self.dice(3)
+                        if humanizer == 3:
+                            attackE = 2
+                        else:
+                            attackE = 1
+                else:
+                    if entity.st <= 0:
                         attackE = 2
-            if entity.hp > 0:
-
-
-                    #ENEMY STREINGTH ATTACK
-                
-                if attackE == 1:
-                    #sleep(1)
-                    print entity.klass, "used SLASH!"
-                    sleep(0.5)
-                    playerDodge = self.agChek(entity, player)
-                    if playerDodge == 1:
-                        print "it was SUPER EFFECTIVE!" #Add agility chek/roll
-                        player.hp -= entity.st
                     else:
-                        print "You dodged the attack"
-                    sleep(1)
-                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+                        humanizer = self.dice(3)
+                        if humanizer == 3:
+                            attackE = 1
+                        else:
+                            attackE = 2
+                if entity.hp > 0:
 
 
-                    #ENEMY MAGIC ATTACK
-                
-                else:
-                    #sleep(1)
-                    print entity.klass, "used FIREBALL!"
-                    sleep(0.5)
-                    playerDodge = self.agChek(entity, player)
-                    if playerDodge == 1:
-                        print "it was SUPER EFFECTIVE!" #Add agility chek/roll
-                        player.hp -= entity.mp
-                    sleep(1)
-                    print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+                        #ENEMY STREINGTH ATTACK
+                    
+                    if attackE == 1:
+                        #sleep(1)
+                        print entity.klass, "used SLASH!"
+                        sleep(0.5)
+                        playerDodge = self.agChek(entity, player)
+                        if playerDodge == 1:
+                            print "it was SUPER EFFECTIVE!" #Add agility chek/roll
+                            player.hp -= entity.st
+                        else:
+                            print "You dodged the attack"
+                        sleep(1)
+                        print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
+
+
+                        #ENEMY MAGIC ATTACK
+                    
+                    else:
+                        #sleep(1)
+                        print entity.klass, "used FIREBALL!"
+                        sleep(0.5)
+                        playerDodge = self.agChek(entity, player)
+                        if playerDodge == 1:
+                            print "it was SUPER EFFECTIVE!" #Add agility chek/roll
+                            player.hp -= entity.mp
+                        sleep(1)
+                        print self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!" #add armor calculation?
 
 
 
 
-         #-#-#-#-#-#
-        # Level up! #
-         #-#-#-#-#-#
-
-        if player.hp > 0:
-            player.xp += entity.xp
-            print "\n"
-            print "Leveling progress:"
-            print "------------------"
-            print player.xp, "/", player.maxxp
-            print "------------------"
-            sleep(2)
-            print "\n"*60
-        else:
-            print "\n"*60
-            print "You died."
-            sleep(6)
-            quit()
-        if player.xp >= player.maxxp:
-            print
-            print
-            print "YOU LEVELED UP!"
-            print "____________________________"
-            print
-            print "Level", player.level, player.klass
-            print "____________________________"
-            print
-            print "THESE ARE YOUR EPIC STATS!!!"
-            print "____________________________"
-            print
-            print "Health    Points:",player.hp, "/", player.maxhp
-            print "Streingth Points:",player.st
-            print "Magic     Points:",player.mp
-            print "Agility   Points:",player.ag
-            print "____________________________"
-            print
-            player.level += 1
-            trystat = 1
-            while trystat == 1:
-                statplus = self.tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
-                healpoints = player.maxhp
-                if statplus == 1:
-                    player.maxhp += 1
-                    player.hp += 1
-                    trystat = 0
-                elif statplus == 2:
-                    player.st += 1
-                    trystat = 0
-                elif statplus == 3:
-                    player.mp += 1
-                    trystat = 0
-                elif statplus == 4:
-                    player.ag += 1
-                    trystat = 0
-                else:
-                    print "my nibba, try an advertised number!"
-            player.xp -= player.maxxp
-            player.setXp()
+##         #-#-#-#-#-#-#-#
+##        # XP and Death! #
+##         #-#-#-#-#-#-#-#
+##
+##        if player.hp > 0:
+##            player.xp += entity.xp
+##            print "\n"
+##            print "Leveling progress:"
+##            print "------------------"
+##            print player.xp, "/", player.maxxp
+##            print "------------------"
+##            sleep(2)
+##            print "\n"*60
+##        else:
+##            print "\n"*60
+##            print "You died."
+##            sleep(6)
+##            quit()
+##    
+##            #dead entity eliminator
+##        indexMem = -1
+##        for i in listE:
+##            indexMem += 1
+##            if i.hp <= 0:
+##                listE.remove(entity)
+##
+##
+##         #-#-#-#-#-#
+##        # Level up! #
+##         #-#-#-#-#-#
+##
+##
+##            
+##        if player.xp >= player.maxxp:
+##            print
+##            print
+##            print "YOU LEVELED UP!"
+##            print "____________________________"
+##            print
+##            print "Level", player.level, player.klass
+##            print "____________________________"
+##            print
+##            print "THESE ARE YOUR EPIC STATS!!!"
+##            print "____________________________"
+##            print
+##            print "Health    Points:",player.hp, "/", player.maxhp
+##            print "Streingth Points:",player.st
+##            print "Magic     Points:",player.mp
+##            print "Agility   Points:",player.ag
+##            print "____________________________"
+##            print
+##            player.level += 1
+##            trystat = 1
+##            while trystat == 1:
+##                statplus = self.tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
+##                healpoints = player.maxhp
+##                if statplus == 1:
+##                    player.maxhp += 1
+##                    player.hp += 1
+##                    trystat = 0
+##                elif statplus == 2:
+##                    player.st += 1
+##                    trystat = 0
+##                elif statplus == 3:
+##                    player.mp += 1
+##                    trystat = 0
+##                elif statplus == 4:
+##                    player.ag += 1
+##                    trystat = 0
+##                else:
+##                    print "my nibba, try an advertised number!"
+##            player.xp -= player.maxxp
+##            player.setXp()
+                        
         print "\nbattle ended\n"
                 
     ########################
@@ -603,15 +703,15 @@ class game:
 
         print attacker.klass, "got", playerD
         print defender.klass, "got", entityD
-        entityD == float(entityD) * 0.5
-        print "Dodge modifier changes defender's value to", entityD
+        entityDMod = int(entityD * 0.5)
+        print "Dodge modifier changes defender's value to", entityDMod
         print "----------------------------------------------------"
         sleep(1)
         
         if playerD > entityD:
             print "EZ Hit"
             return 1
-        elif playerD == entityD:
+        elif playerD >= entityDMod:
             test2 = self.dice(2)
             if test2 == 1:
                 print attacker.klass, "barely hit"
@@ -619,7 +719,7 @@ class game:
             else:
                 print attacker.klass, "tripped"
                 return 0
-        elif playerD < entityD:
+        elif playerD < entityDMod:
             print attacker.klass, "Is worthless at aiming"
             return 0
 
@@ -636,7 +736,14 @@ class game:
             chanse = 1 # since 1 is the only thing that allows the program to continue might as well save resourcess till some other events are added
             if chanse == 1:
                 self.goblin.fixhealth()
-                self.encounter(self.player,self.goblin,self.evil_wizard)
+                self.encounter(self.player,self.goblin)
+                print "\n"*60
+                choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
+                if choice == 2:
+                    return
+            else:
+                self.goblin.fixhealth()
+                self.encounter(self.player,self.goblin)
                 print "\n"*60
                 choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
                 if choice == 2:
