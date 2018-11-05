@@ -13,7 +13,7 @@ def encounter(self, player,entity,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 
     print()
     #entity.taunt #TODO: ADD ME WHEN ENTITIES ARE SUBCLASSES OF baseEntity.
     sleep(2) #TODO: remove this, and place into the baseEntity when it's done.
-    self.battle(player,entity,entity2,entity3,entity4,entity5)
+    battle(self, player,entity,entity2,entity3,entity4,entity5)
 
 
 
@@ -21,7 +21,7 @@ def encounter(self, player,entity,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 
 #Choice handler#
 ################
 
-def tryer(self, num,string,is_inventory = 0):
+def tryer(num,string,is_inventory = 0):
     while True:
         print(string)
         if is_inventory != 1:
@@ -37,7 +37,7 @@ def tryer(self, num,string,is_inventory = 0):
                 print("try an advertised number")
         except:
             if is_inventory != 1:
-                self.inventory()
+                inventory()
             else:
                 print("Try a number, fool")
 
@@ -46,26 +46,26 @@ def tryer(self, num,string,is_inventory = 0):
 #Dice roller#
 #############
 
-def dice(self, num): #num -> how big a die you throw
+def dice( num): #num -> how big a die you throw
     number = randint(1,num)
     return number
 
 #################
 #jump,duck,dodge# used in sun temple line 599
 #################
-def jumpDuckDodge(self, player,boulder):
+def jumpDuckDodge( player,boulder):
     jumpPrompt = "There is a stone on the ground in your way\n"
     duckPrompt = "You see a branch att head level\n"
     dodgePrompt = "A stone falls from the ceiling\n"
     boulderDist = 500
     promptList = [jumpPrompt, duckPrompt, dodgePrompt]
-    #tryerPrompt = self.tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+    #tryerPrompt = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
     print("Oh no it seems the way to the exit has taken som damage from all the shaking\n")
     for i in range(0, 7):
         start = time()
         event = ranchoice(promptList)
         print(event)
-        eventChoice = self.tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
+        eventChoice = tryer(3,"(1)Jump\n(2)duck\n(3)dodge\n")
         if event == jumpPrompt:
             if eventChoice == 1:
                 boulderDist -= 50
@@ -95,7 +95,7 @@ def jumpDuckDodge(self, player,boulder):
             boulderDist -= 50
         if boulderDist <= 0:
             print("It seems you got rolled over by a boulder.\n")
-            self.battle(player,boulder)
+            battle(player,boulder)
             #self.player.hp = -999
             return player
         print("The boulder is", boulderDist, "meters away from crushing you.\n")
@@ -161,19 +161,19 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                 print("("+str(numb1)+")"+"lvl", i.level, i.klass, "["+str(i.hp)+"/"+str(i.maxhp)+"]") #Display enemy names and hp
             numb1 = 0
 
-            entityNum = self.tryer(len(listE),"which entity do you want to attack from 1 - 5?\n") #TODO: make special adjustment to tryer to make this look beautiful
+            entityNum = tryer(len(listE),"which entity do you want to attack from 1 - 5?\n") #TODO: make special adjustment to tryer to make this look beautiful
             entity = listE[entityNum-1]
         else:
             break
 
-        attack = self.tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
+        attack = tryer(3,"which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether, i want back to mommy ;(\n")
         print("\n" * 60)
 
                 #PLAYER STREINGTH ATTACK
         if attack == 1:
             print("You use SLASH!!!")
             sleep(0.5)
-            playerHit = self.agChek(player,entity)
+            playerHit = agChek(player,entity)
             if playerHit == 1:
                 print("It was super effective!")
                 entity.hp -= player.st
@@ -187,7 +187,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
         elif attack == 2:
             print("You use FIREBALL!!!")
             sleep(0.5)
-            playerHit = self.agChek(player,entity)
+            playerHit = agChek(player,entity)
             if playerHit == 1:
                 print("It was super effective!")
                 entity.hp -= player.mp
@@ -199,7 +199,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
 
                 #PLAYER BEING A PUSSY
         else:
-            escape = self.coward(player,entity)
+            escape = coward(player,entity)
             sleep(2)
             print("\n"*60)
             if escape == 0:
@@ -263,7 +263,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
             player.level += 1
             trystat = 1
             while trystat == 1:
-                statplus = self.tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
+                statplus = tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
                 healpoints = player.maxhp
                 if statplus == 1:
                     player.maxhp += 1
@@ -296,7 +296,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                 if entity.mp <= 0:
                     attackE = 1
                 else:
-                    humanizer = self.dice(3)
+                    humanizer = dice(3)
                     if humanizer == 3:
                         attackE = 2
                     else:
@@ -305,7 +305,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                 if entity.st <= 0:
                     attackE = 2
                 else:
-                    humanizer = self.dice(3)
+                    humanizer = dice(3)
                     if humanizer == 3:
                         attackE = 1
                     else:
@@ -319,14 +319,14 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                     #sleep(1)
                     print(entity.klass, "used SLASH!")
                     sleep(0.5)
-                    playerDodge = self.agChek(entity, player)
+                    playerDodge = agChek(entity, player)
                     if playerDodge == 1:
                         print("it was SUPER EFFECTIVE!") #Add agility chek/roll
                         player.hp -= entity.st
                     else:
                         print("You dodged the attack")
                     sleep(1)
-                    print(self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
+                    print(name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
 
 
                     #ENEMY MAGIC ATTACK
@@ -335,7 +335,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                     #sleep(1)
                     print(entity.klass, "used FIREBALL!")
                     sleep(0.5)
-                    playerDodge = self.agChek(entity, player)
+                    playerDodge = agChek(entity, player)
                     if playerDodge == 1:
                         print("it was SUPER EFFECTIVE!") #Add agility chek/roll
                         player.hp -= entity.mp
@@ -425,7 +425,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
 #Run awaay loik a poosy#
 ########################
 
-def coward(self, player,entity):
+def coward( player,entity):
     #playerA = 0
     playerA = player.ag
     playerD = 0
@@ -434,10 +434,10 @@ def coward(self, player,entity):
     entityD = 0
 
     while playerA > 0:
-        playerD += self.dice(6)
+        playerD += dice(6)
         playerA -= 1
     while entityA > 0:
-        entityD += self.dice(6)
+        entityD += dice(6)
         entityA -= 1
 
     print("you got", playerD)
@@ -447,7 +447,7 @@ def coward(self, player,entity):
         print("EZ escape")
         return 1
     elif playerD == entityD:
-        test2 = self.dice(2)
+        test2 = dice(2)
         if test2 == 1:
             print("You barely escaped")
             return 1
@@ -463,7 +463,7 @@ def coward(self, player,entity):
 #DIRTY COPY OF RUNNING# <-- aka agility chek for attack. (USE WHEN WANT TO CHEK AGILITY W/O RANDOM TEXTS)
 #######################     TODO: Could be combined with "coward(X,Y)"
 
-def agChek(self, attacker,defender): #return 1 if hit, 0 if miss.
+def agChek( attacker,defender): #return 1 if hit, 0 if miss.
     print("----------------------------------------------------")
     playerA = attacker.ag #TODO: change player variable to attacker
     playerD = 0
@@ -471,10 +471,10 @@ def agChek(self, attacker,defender): #return 1 if hit, 0 if miss.
     entityD = 0
 
     while playerA > 0:
-        playerD += self.dice(6)
+        playerD += dice(6)
         playerA -= 1
     while entityA > 0:
-        entityD += self.dice(6)
+        entityD += dice(6)
         entityA -= 1
 
     print(attacker.klass, "got", playerD)
@@ -488,7 +488,7 @@ def agChek(self, attacker,defender): #return 1 if hit, 0 if miss.
         print("EZ Hit")
         return 1
     elif playerD >= entityDMod:
-        test2 = self.dice(2)
+        test2 = dice(2)
         if test2 == 1:
             print(attacker.klass, "barely hit")
             return 1
@@ -512,16 +512,16 @@ def cave(self):
         chanse = 1 # since 1 is the only thing that allows the program to continue might as well save resourcess till some other events are added
         if chanse == 1:
             self.goblin.fixhealth()
-            self.encounter(self.player,self.goblin)
+            encounter(self, self.player,self.goblin)
             print("\n"*60)
-            choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
+            choice = tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
             if choice == 2:
                 return
         else:
             self.goblin.fixhealth()
-            self.encounter(self.player,self.goblin)
+            encounter(self.player,self.goblin)
             print("\n"*60)
-            choice = self.tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
+            choice = tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
             if choice == 2:
                 return
 
@@ -535,9 +535,9 @@ def noob_tower(self):
     print("\n"*60)
     #Add art of the tower
     print("The Door is locked.")
-    yesno1 = self.tryer(2,"(1)Kick it in\n(2)Run away loik a poossy")
+    yesno1 = tryer(2,"(1)Kick it in\n(2)Run away loik a poossy")
     if yesno1 == 1:
-        self.battle(self.player,self.door)
+        battle(self.player,self.door)
         sleep(2)
         print("\n"*60)
         print("The door swears it'll get Zer revenge,\nas it opens with an angry look about it.")
@@ -553,7 +553,7 @@ def noob_tower(self):
             print("\nYou climb the stairs of the tower.\n")
             print("You're on level", upp)
             print()
-            up = self.tryer(2,"Do you dare to keep climbing?\n(1)Yes! I HAVE THE POWEEEER!!!\n(2)nn-n-no i-i think i-i-i'll just go home now :(\n")
+            up = tryer(2,"Do you dare to keep climbing?\n(1)Yes! I HAVE THE POWEEEER!!!\n(2)nn-n-no i-i think i-i-i'll just go home now :(\n")
             if up == 1:
                 upp += 1
             else:
@@ -562,7 +562,7 @@ def noob_tower(self):
             if upp <= 4:
                 if encounterChanse <= 2:
                     self.goblin.fixhealth()
-                    self.encounter(self.player,self.goblin)
+                    encounter(self.player,self.goblin)
                 else:
                     print("\n"*60)
                     print("think i heard something...")
@@ -570,10 +570,10 @@ def noob_tower(self):
             elif upp > 4 and upp < 10:
                 if encounterChanse <= 2:
                     self.goblin.fixhealth()
-                    self.encounter(self.player,self.goblin)
+                    encounter(self.player,self.goblin)
                 elif encounterChanse >= 4:
                     self.evil_wizard.fixhealth()
-                    self.encounter(self.player,self.evil_wizard)
+                    encounter(self.player,self.evil_wizard)
                 else:
                     print("\n"*60)
                     print("It seems like the walls are talking to me :S")
@@ -588,7 +588,7 @@ def noob_tower(self):
                 sleep(2)
                 print('\nWizard: "THIS IS MY LAIR! THAU SHALT NOT PASS!"\n\n')
                 sleep(2)
-                self.battle(self.player,self.evil_wizard)
+                battle(self.player,self.evil_wizard)
                 #TODO: chek if wizard dead, end-taunt, loot, escape
 
 
@@ -605,7 +605,7 @@ def noob_tower(self):
 #Village# cordinates (1,1)
 #########
 
-def arskaTown(self, arskaTownAgro):
+def arskaTown( arskaTownAgro):
     print("Outside the village you see a sign, it says: Welcome to Arskatown")
     sleep(2)
     print("You also see a guard standing in front of you")
@@ -613,10 +613,10 @@ def arskaTown(self, arskaTownAgro):
         print("Guard: Hello there! You may enter Arskatown.")
         sleep(2)
         print("You look at the guard and think: Damn I could get xp from that.")
-        choice = self.tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
+        choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
         if choice == 1:
             print("You walk past the guard and enter Arskatown")
-            self.Town()
+            Town()
             return arskaTownAgro
         elif choice == 2:
             arskaTownAgro = 1
@@ -625,25 +625,25 @@ def arskaTown(self, arskaTownAgro):
     self.arskaTown_guard.fixhealth()
     sleep(3)
     if self.arskaTown_guard.hp > 0:
-        self.encounter(self.player,self.arskaTown_guard)
+        encounter(self.player,self.arskaTown_guard)
     if self.arskaTown_guard.hp <= 0:
         print("Me, defeated?, HOW???")
-        choice = self.tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
+        choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
         if choice == 1:
             self.location = [0,1]
             return arskaTownAgro
         elif choice == 2:
-            self.Town()
+            Town()
             return arskaTownAgro
 
 def Town(self):
     while True:
-        choice = self.tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
+        choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
-            self.herbalist()
+            herbalist()
         elif choice == 2:
             drunk = 0
-            drunk = self.arskaBar()
+            drunk = arskaBar()
             if drunk == 1:
                 return
         elif choice == 3:
@@ -658,7 +658,7 @@ def Town(self):
                 self.location = [1,2]
                 return
         elif choice == 4:
-            choice = self.tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
+            choice = tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
             if choice == 1:
                 self.location = [0,1]
                 return
@@ -668,7 +668,7 @@ def Town(self):
         #add healer, add bridge fetch quest, add travel possibilities.
 
 def herbalist(self):
-    choice = self.tryer(2, "Do you want to heal?\n(1) Yes\n (2) No")
+    choice = tryer(2, "Do you want to heal?\n(1) Yes\n (2) No")
     self.player.heal()
     return
 
@@ -676,7 +676,7 @@ def arskaBar(self):
     drunk = 0
     locations = ([0,1],[1,1],[2,0],[1,2],[0,0])
     while True:
-        choice = self.tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
+        choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
         if choice == 1:
             drunk += 1
         elif choice == 2:
@@ -700,7 +700,7 @@ def bridge(self):
     justKilled = 0 #so troll status isn't displayed 2x
     if self.bridgeTroll.hp > 0:
         print("A troll appears from below the bridge\n")
-        self.encounter(self.player, self.bridgeTroll)#line 265
+        encounter(self.player, self.bridgeTroll)#line 265
         if self.bridgeTroll.hp <= 0:
             print("The troll growls painfully as it sinks down into the river.")
             justKilled = 1
@@ -712,7 +712,7 @@ def bridge(self):
             print("You see a dead troll by the bridge")
             sleep(2)
         print("\n" * 60)
-        choice = self.tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
+        choice = tryer(2,"You crossed the bridge safely\n(1)Go west\n(2)Go east")
         if choice == 1:
             self.location = [1,1]
             return
@@ -723,14 +723,14 @@ def bridge(self):
 ############
 #Sun temple# cordinates [2,0]
 ############
-def sunTemple(self, player,boulder):
+def sunTemple( player,boulder):
     print("After picking up the statue the ground starts shaking and you hear something huge coming towards you.")        #TODO battles, pussles and other activities
     print("You probably should start running towards the exit.")
-    choice1 = self.tryer(2, "(1)Run\n(2)Stand still like a moron\n")
+    choice1 = tryer(2, "(1)Run\n(2)Stand still like a moron\n")
     if choice1 == 1:
-       self.jumpDuckDodge(player,boulder)#line 287
+       jumpDuckDodge(player,boulder)#line 287
     elif choice1 == 2:
-        self.battle(player,boulder)
+        battle(player,boulder)
         print("Good job you just got smashed by a boulder and died.")
         time(3)
 
@@ -740,17 +740,17 @@ def sunTemple(self, player,boulder):
 #
 def inventory(self):
 
-    if len(self.var_inventory) != 0: #If inventory empty, can't drop
-        choice = self.tryer(3, "(1)Use an item\n(2)Check inventory\n(3)Drop an item",1)
+    if len(var_inventory) != 0: #If inventory empty, can't drop
+        choice = tryer(3, "(1)Use an item\n(2)Check inventory\n(3)Drop an item",1)
     else:
-        choice = self.tryer(2, "(1)Use an item\n(2)Check inventory",1)
+        choice = tryer(2, "(1)Use an item\n(2)Check inventory",1)
     for i in range(len(self.var_inventory)):
         print(i+1 ,self.var_inventory[i])
     if choice == 3:
-        choice = self.tryer(len(self.var_inventory), "Which item to drop",1)
+        choice = tryer(len(self.var_inventory), "Which item to drop",1)
         self.var_inventory.pop(choice-1) #TODO: Can you drop multiples if more than one?
     elif choice == 1:
-        choice = self.tryer(len(self.var_inventory), "Enter number of item to use",1)
+        choice = tryer(len(self.var_inventory), "Enter number of item to use",1)
         print(item_values[self.var_inventory[choice-1]])
         # ASSIGN VALUES TO WHERE THEY SHOULD GO
 
