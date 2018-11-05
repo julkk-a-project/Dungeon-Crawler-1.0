@@ -18,28 +18,24 @@ class Player:
 class Mage(Player):
     klass = "Mage"
     maxhp = 10
+    hp = maxhp
     st = 1
     mp = 5
-    ag = 1
-    xp = maxhp + st + mp + ag
     pass
 
 
-class Rouge(Player):
+class Rouge(Player): #real worthless "class"
     klass = "Rouge"
     maxhp = 10
+    hp = maxhp
     st = 3
     mp = 3
-    ag = 1
-    xp = maxhp + st + mp + ag
     pass
 
 
 class Warrior(Player):
     klass = "Warrior"
     maxhp = 15
+    hp = maxhp
     st = 5
-    mp = 0
-    ag = 1
-    xp = maxhp + st + mp + ag
     pass

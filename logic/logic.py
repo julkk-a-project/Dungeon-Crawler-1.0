@@ -205,7 +205,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
             if escape == 0:
                 pass
             if escape == 1:
-                return player,entity #IMPORTANT TODO: This makes it possible to skip any battle with enough agility
+                return player,entity #This makes it possible to skip any battle with enough agility
 
 
 
