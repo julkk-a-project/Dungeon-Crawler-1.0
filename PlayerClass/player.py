@@ -14,6 +14,7 @@ class Player:
     def setXp(self):
         self.maxxp = (self.level * 3) ** 2
 
+
 class Mage(Player):
     klass = "Mage"
     maxhp = 10
@@ -22,6 +23,7 @@ class Mage(Player):
     ag = 1
     xp = maxhp + st + mp + ag
     pass
+
 
 class Rouge(Player):
     klass = "Rouge"
@@ -32,9 +34,12 @@ class Rouge(Player):
     xp = maxhp + st + mp + ag
     pass
 
+
 class Warrior(Player):
     klass = "Warrior"
     maxhp = 15
     st = 5
+    mp = 0
+    ag = 1
     xp = maxhp + st + mp + ag
     pass

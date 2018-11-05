@@ -3,8 +3,8 @@
 from time import sleep, time
 from random import randint
 from random import choice as ranchoice
-import PlayerClass as PC
-import logic as logic
+import PlayerClass
+import logic
 
 class game:
     def __init__(self):
