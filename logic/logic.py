@@ -126,7 +126,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
             listE.append(i)
             print(listE.klass)
         except:
-            print("removed", i)
+            pass
 
 
 
