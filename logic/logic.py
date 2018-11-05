@@ -638,7 +638,7 @@ def arskaBar(self):
             print("his bodyguards look at you seriously as you get closer") #TODO: add pimp's bodyguard
             sleep(2)
             print("TEMPORARY TEXT: Hello, i am a pimp and i gib u quest. take it?")
-            choice2 = tryer(2,"(1)Yes\n(2)No)
+            choice2 = tryer(2,"(1)Yes\n(2)No")
             if choice2 == 1:
                 arskaTownQuest1 = 1
         else:
