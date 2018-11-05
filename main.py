@@ -81,18 +81,19 @@ class game:
             print("XXX 1.0 XXX")
             print("___________")
             while try1 == 1:
-                klass = eval(input('CHOOSE YOUR CLASS!!\n(1)WARRIOR\n(2)MAGE\n(3)ROUGE\n(?)ROUGE LIKE\n'))
+                klass = input('CHOOSE YOUR CLASS!!\n(1)WARRIOR\n(2)MAGE\n(3)ROUGE\n(?)ROUGE LIKE\n')
                 if klass == "1" or klass == "WARRIOR" or klass == "warrior":
-                    self.player = self.warrior()
+                    self.player = Warrior()
                     try1 = 0
                 elif klass == "2" or klass == "MAGE" or klass == "mage":
-                    self.player = self.mage()
+                    self.player = Mage()
                     try1 = 0
                 elif klass == "3" or klass == "ROUGE" or klass == "rouge":
-                    self.player = self.rouge()
+                    self.player = Rouge()
                     try1 = 0
                 elif klass == "?" or klass == "ROUGE like" or klass == "rouge like":
-                    self.player = self.rougel()
+                    # Rougel does not exis in player.py
+                    self.player = Rougel()
                     try1 = 0
                 else:
                     print("\n"*60)
@@ -132,12 +133,12 @@ class game:
         arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
         self.arskaTownQuest1 = 0 #0 -> fetchquest not taken yet. 1 -> fetchquest taken. 2 -> fetchquest finnished(allow crossing to bridge)
         self.darkTowerBoss = 1 #1 -> boss alive. 0 -> boss killed and loot collected
-        self.evil_wizard = self.evil_wizard()
-        self.goblin = self.goblin()
-        self.door = self.large_door() #in DarkTower
-        self.arskaTown_guard = self.arskaTown_guard()
-        self.bridgeTroll = self.bridgeTroll()
-        self.boulder = self.boulder()
+        self.evil_wizard = evil_wizard()
+        self.goblin = goblin()
+        self.door = large_door() #in DarkTower
+        self.arskaTown_guard = arskaTown_guard()
+        self.bridgeTroll = bridgeTroll()
+        self.boulder = boulder()
         while self.player.hp > 0:
             print("\n"*60)
             print(" _________")
@@ -147,27 +148,27 @@ class game:
 
             if self.location == [0,0]: #NoobCave
                 print("You see a cave!")
-                yesno1 = self.tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
+                yesno1 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
                 if yesno1 == 1:
-                    self.cave()
+                    cave(self)
                 else:
                     print("\n"*60)
                     print("-----------------------------------")
                     print("North of you there is a Dark tower.\nIn all other directions there are mountains.")
                     print("-----------------------------------")
                     testmove1 = 2
-                    testmove1 = self.tryer(2,"Move North?\n(1)Yes\n(2)No.\n")
+                    testmove1 = tryer(2,"Move North?\n(1)Yes\n(2)No.\n")
                     if testmove1 == 1:
                         self.location = [0,1]
 
             elif self.location == [0,1]: #Dark Tower
                 print("You see a DARK TOWER!!!")
-                yesno2 = self.tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
+                yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
                 if yesno2 == 1:
-                    self.noob_tower()
+                    noob_tower()
                 elif yesno2 == 2:
                     print("\n"*60)
-                    yesno2_2 = self.tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
+                    yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
                     if yesno2_2 == 1:
                         self.location = [2,0]
                     elif yesno2_2 == 2:
@@ -177,11 +178,11 @@ class game:
 
             elif self.location == [1,1]: #ArskaTown
                 print("\n"*60)
-                yesno3 = self.tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
+                yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
                 if yesno3 == 1:
-                    arskaTownAgro  = self.arskaTown(arskaTownAgro)
+                    arskaTownAgro  = arskaTown(arskaTownAgro)
                 elif yesno3 == 2:
-                    yesno3_2 = self.tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
+                    yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
                     if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS ADDED
                         self.location = [1,2]
                     elif yesno3_2 == 2:
@@ -192,11 +193,11 @@ class game:
                 print("There is an old warning sign next to the bridge. it looks menacing.")
                 sleep(4)
                 print("\n"*60)
-                cross = self.tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
+                cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
                 if cross == 1:
-                    self.bridge()
+                    bridge()
                 elif cross == 2:
-                    yesno4_2 = self.tryer(2,"(1) Back to ArkaTown\n(2)Try crossing the bridge")
+                    yesno4_2 = tryer(2,"(1) Back to ArkaTown\n(2)Try crossing the bridge")
                     if yesno4_2 == 1:
                         self.location = [1,1]
                     elif yesno4_2 == 2:
@@ -208,9 +209,9 @@ class game:
                 sleep(3)
                 print("\n" * 20)
                 print("after walking for a couple minutes you arrive at a pedestal where you see a idol, you feel a strong presence from it.")
-                choice = self.tryer(2, "Take the statue?\n(1)Yes\n(2)No\n")#line 261
+                choice = tryer(2, "Take the statue?\n(1)Yes\n(2)No\n")#line 261
                 if choice == 1:
-                    self.sunTemple(self.player,self.boulder)#line 597
+                    sunTemple(self.player,self.boulder)#line 597
 
             else:
                 print("ERROR ERROR MISSING LOCATION!!!!")
