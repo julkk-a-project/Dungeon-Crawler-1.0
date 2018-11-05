@@ -11,9 +11,8 @@ def encounter(self, player,entity,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 
     print("\n"*60)
     print("YOU ENCOUNTERED A", entity.klass, "!")
     print()
-    #entity.taunt #TODO: ADD ME WHEN ENTITIES ARE SUBCLASSES OF baseEntity.
-    sleep(2) #TODO: remove this, and place into the baseEntity when it's done.
-    battle(self, player,entity,entity2,entity3,entity4,entity5)
+    entity.taunt()
+    self.battle(player,entity,entity2,entity3,entity4,entity5)
 
 
 
@@ -124,7 +123,6 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
         try:
             test += i.klass
             listE.append(i)
-            print(listE.klass)
         except:
             pass
 
@@ -342,82 +340,6 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                     sleep(1)
                     print(self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
 
-
-
-
-##         #-#-#-#-#-#-#-#
-##        # XP and Death! #
-##         #-#-#-#-#-#-#-#
-##
-##        if player.hp > 0:
-##            player.xp += entity.xp
-##            print "\n"
-##            print "Leveling progress:"
-##            print "------------------"
-##            print player.xp, "/", player.maxxp
-##            print "------------------"
-##            sleep(2)
-##            print "\n"*60
-##        else:
-##            print "\n"*60
-##            print "You died."
-##            sleep(6)
-##            quit()
-##
-##            #dead entity eliminator
-##        indexMem = -1
-##        for i in listE:
-##            indexMem += 1
-##            if i.hp <= 0:
-##                listE.remove(entity)
-##
-##
-##         #-#-#-#-#-#
-##        # Level up! #
-##         #-#-#-#-#-#
-##
-##
-##
-##        if player.xp >= player.maxxp:
-##            print
-##            print
-##            print "YOU LEVELED UP!"
-##            print "____________________________"
-##            print
-##            print "Level", player.level, player.klass
-##            print "____________________________"
-##            print
-##            print "THESE ARE YOUR EPIC STATS!!!"
-##            print "____________________________"
-##            print
-##            print "Health    Points:",player.hp, "/", player.maxhp
-##            print "Streingth Points:",player.st
-##            print "Magic     Points:",player.mp
-##            print "Agility   Points:",player.ag
-##            print "____________________________"
-##            print
-##            player.level += 1
-##            trystat = 1
-##            while trystat == 1:
-##                statplus = self.tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
-##                healpoints = player.maxhp
-##                if statplus == 1:
-##                    player.maxhp += 1
-##                    player.hp += 1
-##                    trystat = 0
-##                elif statplus == 2:
-##                    player.st += 1
-##                    trystat = 0
-##                elif statplus == 3:
-##                    player.mp += 1
-##                    trystat = 0
-##                elif statplus == 4:
-##                    player.ag += 1
-##                    trystat = 0
-##                else:
-##                    print "my nibba, try an advertised number!"
-##            player.xp -= player.maxxp
-##            player.setXp()
 
     print("\nbattle ended\n")
 
@@ -673,24 +595,56 @@ def herbalist(self):
     return
 
 def arskaBar(self):
+    pimp = 0 #Make me a "global variable"
     drunk = 0
     locations = ([0,1],[1,1],[2,0],[1,2],[0,0])
+    print("The bar is full of people, drinking and having fun. some of them are even smiling!")
+    sleep(3)
+    print("\n*60")
+    print("")
     while True:
-        choice = tryer(2,"Do you want to:\n(1) Take a drink\n(2) Leave the bar")
+        if pimp == 0:
+            choice = tryer(3,"Do you want to:\n(1) Take a drink\n(2) Try to talk to someone\n(3) Leave the bar")
+        elif pimp == 1:
+            choice = tryer(4,"Do you want to:\n(1) Take a drink\n(2) Try to talk to someone\n(3) Try to talk to the fat pimp\n(4) Leave the bar")
         if choice == 1:
             drunk += 1
+            if drunk == 6:
+                print("\n"*60)
+                print("You are drunk")
+                sleep(1)
+                print("!")
+                self.location = ranchoice(locations)
+                print("\nyou find you wake up but you don't remember getting here")
+                sleep(1)
+                return 1
         elif choice == 2:
+            if drunk < 1:
+                print("You're a reserved person. you'd never be able to talk to a stranger.")
+                sleep(2)
+                print("\n\n...not without some social lubricant")
+                sleep(2)
+                print("\n*60")
+            else:
+                print("you try to make conversation with the people, but those you tried to speak to had better things on their mind than your depressed ass.")
+                sleep(2)
+                if drunk > 3:
+                    print("\nYou did see a fat pimp wearing a violet jacket and a golden undershirt in the corner of the bar. he looks like he means buisness.")
+                    pimp = 1
+                    sleep(3)
+        elif pimp == 1 and choice == 3:
+            print("you aproatch the fat pimp.")
+            sleep(2)
+            print("his bodyguards look at you seriously as you get closer") #TODO: add pimp's bodyguard
+            sleep(2)
+            print("TEMPORARY TEXT: Hello, i am a pimp and i gib u quest. take it?")
+            choice2 = tryer(2,"(1)Yes\n(2)No)
+            if choice2 == 1:
+                arskaTownQuest1 = 1
+        else:
             print("You leave the bar")
             return 0
-        if drunk == 6:
-            print("\n"*60)
-            print("You are drunk")
-            sleep(1)
-            print("!")
-            self.location = ranchoice(locations)
-            print("\nyou find you wake up but you don't remember getting here")
-            sleep(1)
-            return 1
+
 
 
 ########
