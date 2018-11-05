@@ -1,4 +1,5 @@
 class Player:
+    name = "Defaultskin"
     level = 1
     maxxp = (level * 3) ** 2
     maxhp = 1
@@ -24,7 +25,7 @@ class Mage(Player):
     pass
 
 
-class Rouge(Player): #real worthless "class"
+class Rouge(Player): #a really worthless "class" atm
     klass = "Rouge"
     maxhp = 10
     hp = maxhp

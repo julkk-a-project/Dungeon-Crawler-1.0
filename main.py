@@ -120,6 +120,8 @@ class game:
             print()
             try2 = eval(input("enter (1) if you are happy!\nAND (2) IF YOU WANT TO CHOOSE AGAAAIN!!!\n"))
             try1 = 1
+        self.player.name = self.name
+        print(self.player.name)
 
 
 

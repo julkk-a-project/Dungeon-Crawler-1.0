@@ -326,7 +326,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                     else:
                         print("You dodged the attack")
                     sleep(1)
-                    print(name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
+                    print(self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
 
 
                     #ENEMY MAGIC ATTACK
