@@ -1,1 +1,1 @@
-import logic as logic
+from time import sleep

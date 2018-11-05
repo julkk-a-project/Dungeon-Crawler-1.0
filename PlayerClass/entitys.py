@@ -9,7 +9,7 @@ class baseEntity:
     ag = 1
     xp = maxhp + st + mp + ag
     def taunt(self):
-        print '"Taunt"'
+        print ('"Taunt"')
         sleep(2)
     def fixhealth(self):
         self.hp = self.maxhp
@@ -23,20 +23,21 @@ class evil_wizard(baseEntity):
     maxhp = 10
     st = 2
     mp = 4
-    grand = false
+    grand = False
     def fixhealth(self):
-            if self.grand != True:
-                self.hp = self.maxhp
-            else:
-                print "The Grand Wizard uses a minor healing spell"
-                self.hp += 1
-        def is_grand(self):
-            self.grand = True
-            self.klass = "GRAND Wizard"
-            self.level = 45
-            self.maxhp = 50
-            self.hp = 50
-            self.mp = 5
+        if self.grand != True:
+            self.hp = self.maxhp
+        else:
+            print ("The Grand Wizard uses a minor healing spell")
+            self.hp += 1
+
+    def is_grand(self):
+        self.grand = True
+        self.klass = "GRAND Wizard"
+        self.level = 45
+        self.maxhp = 50
+        self.hp = 50
+        self.mp = 5
 
 class bridgeTroll(baseEntity):
     klass = "Bridge Troll"

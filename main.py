@@ -3,12 +3,15 @@
 from time import sleep, time
 from random import randint
 from random import choice as ranchoice
-import PlayerClass
-import logic
+from PlayerClass.entitys import *
+from PlayerClass.player import *
+from logic.logic import *
 
 class game:
     def __init__(self):
         self.main()
+        name = ""
+        player = ""
 
 
     def main(self):
@@ -67,20 +70,20 @@ class game:
         ################# CLASS CHOICE
         self.player = "???"
         print()
-        self.name = eval(input("What is your name!\n"))
+        self.name = input("What is your name!\n")
         try1 = 1
         try2 = 2
         while try2 != 1:
             print(("\n"*60))
-            print ("___________")
+            print("___________")
             print()
-            print ("XXX D C XXX")
-            print ("XXX 1.0 XXX")
-            print ("___________")
+            print("XXX D C XXX")
+            print("XXX 1.0 XXX")
+            print("___________")
             while try1 == 1:
                 klass = eval(input('CHOOSE YOUR CLASS!!\n(1)WARRIOR\n(2)MAGE\n(3)ROUGE\n(?)ROUGE LIKE\n'))
                 if klass == "1" or klass == "WARRIOR" or klass == "warrior":
-                    self.player = PC.warrior()
+                    self.player = self.warrior()
                     try1 = 0
                 elif klass == "2" or klass == "MAGE" or klass == "mage":
                     self.player = self.mage()
