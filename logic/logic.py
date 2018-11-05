@@ -5,14 +5,14 @@ from time import sleep, time
 ###########
 #Encounter#
 ###########
-def encounter(self, player,entity,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
+def encounter(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
 
     #TODO: add short animation to all entities
     print("\n"*60)
-    print("YOU ENCOUNTERED A", entity.klass, "!")
+    print("YOU ENCOUNTERED A", entity1.klass, "!")
     print()
-    entity.taunt()
-    self.battle(player,entity,entity2,entity3,entity4,entity5)
+    entity1.taunt()
+    battle(player,entity1,entity2,entity3,entity4,entity5)
 
 
 
@@ -106,25 +106,22 @@ def jumpDuckDodge( player,boulder):
 
 
 
-#\                            ___Help!___
+#\                            ___R.I.P___
 # \  - -\   #*#*#*#*#*#*#*#  |    \0/    |  #*#*#*#*#*#*#*#
 # >> - -<>  # B a t t l e #  | Ver X Sus |  # s y s t e m #
 # /  - -/   #*#*#*#*#*#*#*#  |____/ \____|  #*#*#*#*#*#*#*#
 #/
 
 
-def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
+def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
         #Multiple enemy handler
     test = "" #to test if entity is an actual entity
     listA = [entity2,entity3,entity4,entity5]
     listE = [entity1] #entity1 is always an entity. you can't encounter zero entities.
     emptyList = [] #To compare with listE in while loop
     for i in listA:
-        try:
-            test += i.klass
+        if type(i) == object:
             listE.append(i)
-        except:
-            pass
 
 
 
@@ -142,7 +139,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
     print()
     while player.hp > 0 and listE != emptyList:
         print("--------------------------")
-        print(self.name, "health:", player.hp, "/", player.maxhp)
+        print(player.name, "health:", player.hp, "/", player.maxhp)
         print("--------------------------\n")
 
 
@@ -324,7 +321,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                     else:
                         print("You dodged the attack")
                     sleep(1)
-                    print(self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
+                    print(player.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
 
 
                     #ENEMY MAGIC ATTACK
@@ -338,7 +335,7 @@ def battle(self, player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0)
                         print("it was SUPER EFFECTIVE!") #Add agility chek/roll
                         player.hp -= entity.mp
                     sleep(1)
-                    print(self.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
+                    print(player.name, "has", player.hp, "/", player.maxhp, "HP LEFT!!!") #add armor calculation?
 
 
     print("\nbattle ended\n")
@@ -558,7 +555,7 @@ def arskaTown( arskaTownAgro):
             Town()
             return arskaTownAgro
 
-def Town(self):
+def Town():
     while True:
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
