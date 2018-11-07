@@ -210,6 +210,7 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
 
         if player.hp > 0:
             player.xp += entity.xp
+            player.score += entity.xp #Change this to an entity score, when every entity has their own "score value". good for removing score when killing civilians.
             print("\n")
             print("Leveling progress:")
             print("------------------")
@@ -219,7 +220,7 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
             print("\n"*60)
         else:
             print("\n"*60)
-            print("You died.")
+            print("You died. your score was" player.score)
             sleep(6)
             quit()
 

@@ -8,6 +8,7 @@ class Player:
     mp = 0
     ag = 1
     xp = 0
+    score = 0
 
     def heal(self):
         self.hp = self.maxhp
