@@ -21,7 +21,7 @@ class goblin(baseEntity):
     klass = "Goblin"
     maxhp = 5
     hp = maxhp
-    xp = maxhp + st + mp + ag
+    xp = 7
 
 class evil_wizard(baseEntity):
     klass = "Evil Wizard"
@@ -30,7 +30,7 @@ class evil_wizard(baseEntity):
     hp = maxhp
     st = 2
     mp = 4
-    xp = maxhp + st + mp + ag
+    xp = 17
     grand = False
     def fixhealth(self):
         if self.grand != True:

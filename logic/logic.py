@@ -220,7 +220,7 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
             print("\n"*60)
         else:
             print("\n"*60)
-            print("You died. your score was" player.score)
+            print("You died. your score was", player.score)
             sleep(6)
             quit()
 
