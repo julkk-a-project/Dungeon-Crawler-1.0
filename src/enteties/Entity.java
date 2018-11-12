@@ -1,6 +1,6 @@
-package playerClass;
+package enteties;
 
-public class entity {
+public class Entity {
     public String name;
     public int level = 1;
     public int maxxp = (level * 3)^2;

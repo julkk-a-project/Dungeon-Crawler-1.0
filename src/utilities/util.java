@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.Scanner;
+
 public class util {
 
     public void intro(){
@@ -38,5 +40,24 @@ public class util {
 
     public void Print(String string){
         System.out.println(string);
+    }
+
+    public int ChoiseSelectorInt(){
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+
+    public void ScreenClearer(){
+        for(int i = 0; i < 60;i++){
+            System.out.println("\n");
+        }
+    }
+
+    public void sleeper(){
+        try {
+            Thread.sleep(5000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 }
