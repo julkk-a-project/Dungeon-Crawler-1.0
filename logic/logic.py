@@ -351,6 +351,23 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
 
     print("\nbattle ended\n")
 
+####################
+#Agility XP Chekker#
+####################
+
+def agXpChekker(player):
+    if player.agXp >= player.agXp:
+        print("\nYour failiures have resulted in you learning how to actually use your muscles.\nYou can now increase your agility skill.")
+        sleep(2)
+        return
+    else:
+        return
+
+
+
+
+
+
 ########################
 #Run awaay loik a poosy#
 ########################
@@ -387,6 +404,7 @@ def coward( player,entity):
     elif playerD < entityD:
         print("You're worthless at running")
         player.agXp += 1
+        agXpChekker(player)
         return 0
 
 
@@ -429,6 +447,7 @@ def agChek( attacker,defender): #return 1 if hit, 0 if miss.
     elif playerD < entityDMod:
         print(attacker.klass, "Is worthless at aiming")
         attacker.agXp += 1
+        agXpChekker(attacker)
         return 0
 
 
