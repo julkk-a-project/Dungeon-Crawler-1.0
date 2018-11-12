@@ -35,4 +35,8 @@ public class util {
             }
         }
     }
+
+    public void Print(String string){
+        System.out.println(string);
+    }
 }

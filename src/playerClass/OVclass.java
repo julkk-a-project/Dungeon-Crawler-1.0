@@ -2,7 +2,7 @@ package playerClass;
 
 public class OVclass {
 
-    public String name;
+    public String name = "blaha";
     public int level = 1;
     public int maxxp = (level * 3)^2;
     public int maxhp = 1;
