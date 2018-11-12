@@ -208,7 +208,7 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
         # XP and Death! #
          #-#-#-#-#-#-#-#
 
-        if player.hp > 0:
+        if player.hp > 0 and entity.hp <= 0:
             player.xp += entity.xp
             player.score += entity.xp #Change this to an entity score, when every entity has their own "score value". good for removing score when killing civilians.
             print("\n")
@@ -257,9 +257,15 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
             print("____________________________")
             print()
             player.level += 1
-            trystat = 1
-            while trystat == 1:
-                statplus = tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
+            if player.agXp >= player.agMax:
+                trystat = 2
+            else:
+                trystat = 1
+            while trystat != 0:
+                if trystat == 2:
+                    statplus = tryer(4,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic\n(4)Agility")
+                else:
+                    statplus = tryer(3,"WHICH SKILL DO YOU WANT TO INCREASE!\n(1)Health\n(2)Streingth\n(3)Magic")
                 healpoints = player.maxhp
                 if statplus == 1:
                     player.maxhp += 1
@@ -272,8 +278,12 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
                     player.mp += 1
                     trystat = 0
                 elif statplus == 4:
-                    player.ag += 1
-                    trystat = 0
+                    if trystat == 2:
+                        player.ag += 1
+                        trystat = 0
+                        player.AgXp = 0
+                        player.setAgXp()
+                        
                 else:
                     print("my nibba, try an advertised number!")
             player.xp -= player.maxxp
@@ -376,6 +386,7 @@ def coward( player,entity):
             return 0
     elif playerD < entityD:
         print("You're worthless at running")
+        player.agXp += 1
         return 0
 
 
@@ -404,10 +415,10 @@ def agChek( attacker,defender): #return 1 if hit, 0 if miss.
     print("----------------------------------------------------")
     sleep(1)
 
-    if playerD > entityD:
+    if playerD > entityDMod:
         print("EZ Hit")
         return 1
-    elif playerD >= entityDMod:
+    elif playerD == entityDMod:
         test2 = dice(2)
         if test2 == 1:
             print(attacker.klass, "barely hit")
@@ -417,6 +428,7 @@ def agChek( attacker,defender): #return 1 if hit, 0 if miss.
             return 0
     elif playerD < entityDMod:
         print(attacker.klass, "Is worthless at aiming")
+        attacker.agXp += 1
         return 0
 
 

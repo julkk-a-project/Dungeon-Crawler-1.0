@@ -11,6 +11,7 @@ class baseEntity:
     mp = 0
     ag = 1
     xp = maxhp + st + mp + ag
+    agXp = 0 #just to prevent errors
     def taunt(self):
         print ('"Taunt"')
         sleep(2)

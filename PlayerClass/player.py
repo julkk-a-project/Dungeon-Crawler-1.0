@@ -9,12 +9,16 @@ class Player:
     ag = 1
     xp = 0
     score = 0
+    agXp = 0
+    agMax = (ag * 3) ** 1.1
 
     def heal(self):
         self.hp = self.maxhp
 
     def setXp(self):
         self.maxxp = (self.level * 3) ** 2
+    def setAgXp(self):
+        self.agMax = (self.ag * 3) ** 1.1
 
 
 class Mage(Player):
