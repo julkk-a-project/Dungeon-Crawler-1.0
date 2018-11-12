@@ -107,3 +107,4 @@ venv.bak/
 #add ide's
 .vscode/*
 .idea/*
+*.iml
