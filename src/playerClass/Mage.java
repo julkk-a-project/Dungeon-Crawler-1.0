@@ -1,4 +1,4 @@
-package logic;
+package playerClass;
 
 public class Mage extends OVclass{
 

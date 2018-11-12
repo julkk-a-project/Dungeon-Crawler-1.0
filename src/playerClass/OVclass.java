@@ -1,4 +1,4 @@
-package logic;
+package playerClass;
 
 public class OVclass {
 
@@ -12,6 +12,8 @@ public class OVclass {
     public int agility = 1;
     public int xp = 0;
     public int score = 0;
+    public int AgilityXP;
+    public int AgilityMax;
 
     public void heal(){
         healthPoints = maxhp;
@@ -19,6 +21,10 @@ public class OVclass {
 
     public void setXp(){
         maxxp = (level * 3)^2;
+    }
+
+    public void setAgXp(){
+        AgilityMax = (agility * 3)^1;
     }
 
 }
