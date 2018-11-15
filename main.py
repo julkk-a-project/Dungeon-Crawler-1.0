@@ -6,6 +6,7 @@ from random import choice as ranchoice
 from PlayerClass.entitys import *
 from PlayerClass.player import *
 from logic.logic import *
+from location import *
 
 class game:
     def __init__(self):
@@ -93,8 +94,8 @@ class game:
                     try1 = 0
                 elif klass == "?" or klass == "ROUGE like" or klass == "rouge like":
                     # Rougel does not exis in player.py
-                    self.player = Rougel()
-                    try1 = 0
+                #    self.player = Rougel()
+                #    try1 = 0
                 else:
                     print("\n"*60)
                     print("BUG")
@@ -185,7 +186,7 @@ class game:
                     arskaTownAgro  = arskaTown(arskaTownAgro)
                 elif yesno3 == 2:
                     yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
-                    if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS ADDED
+                    if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS DONE
                         self.location = [1,2]
                     elif yesno3_2 == 2:
                         self.location = [0,1]
@@ -204,8 +205,17 @@ class game:
                         self.location = [1,1]
                     elif yesno4_2 == 2:
                         pass
+            
+            elif self.location == [1,3]: #Euler's bridge western side
+                print("infront of you there is a sign that says Euler's bridges ahead.\nYou can also see a short man a few meters away.")
+                sleep(3)
+                yesno5_1 = tryer(2,"(1)Walk twoards the short person of unknown sexual and racal orientation.\n(2)Go back home like a crybaby because you're afraid of some 'Euler' or what ever.")
+                if yesno5_1 == 1:
+                    eulersMinigame()
+                elif yesno5_1 == 2:
+                    self.location = [1,2]
 
-            elif self.location == [2,0]: #Sun temple, check cordinates with master ;)
+            elif self.location == [2,0]: #Sun temple
                 print("You see a temple") #Improve lore
                 print("You feel something strong coming from the temple, you can't resit the urge to enter.")  #TODO where to next?, what if no pickup statue?
                 sleep(3)
