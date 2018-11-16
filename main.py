@@ -6,7 +6,7 @@ from random import choice as ranchoice
 from PlayerClass.entitys import *
 from PlayerClass.player import *
 from logic.logic import *
-from location import *
+from locations.locations import *
 
 class game:
     def __init__(self):
@@ -92,10 +92,6 @@ class game:
                 elif klass == "3" or klass == "ROUGE" or klass == "rouge":
                     self.player = Rouge()
                     try1 = 0
-                elif klass == "?" or klass == "ROUGE like" or klass == "rouge like":
-                    # Rougel does not exis in player.py
-                #    self.player = Rougel()
-                #    try1 = 0
                 else:
                     print("\n"*60)
                     print("BUG")
