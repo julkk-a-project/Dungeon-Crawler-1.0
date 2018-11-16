@@ -6,21 +6,21 @@ public class Player extends OVclass{
         super();
         if(klass == 1){
             this.name = "Mage";
-            maxhp = 10;
-            healthPoints = maxhp;
-            streanght = 1;
-            manapoint = 5;
+            maxHp = 10;
+            hp = maxHp;
+            st = 1;
+            mp = 5;
         }else if(klass == 2){
             this.name = "Warrior";
-            maxhp = 15;
-            healthPoints = maxhp;
-            streanght = 5;
+            maxHp = 15;
+            hp = maxHp;
+            st = 5;
         }else if(klass == 3){
             this.name = "Rouge";
-            maxhp = 10;
-            healthPoints = maxhp;
-            streanght = 3;
-            manapoint = 3;
+            maxHp = 10;
+            hp = maxHp;
+            st = 3;
+            mp = 3;
         }else{
             System.out.println("error in klass chooser");
         }
@@ -29,9 +29,9 @@ public class Player extends OVclass{
     public void PrintStats(){
         System.out.println("Class: " + this.name);
         System.out.println("Level: " + this.level);
-        System.out.println("HP: " + this.healthPoints);
-        System.out.println("Strenght: " + this.streanght);
-        System.out.println("MP: " + this.manapoint);
-        System.out.println("AG: " + this.agility);
+        System.out.println("HP: " + this.hp +"/"+ this.maxHp);
+        System.out.println("ST: " + this.st);
+        System.out.println("MP: " + this.mp);
+        System.out.println("AG: " + this.ag);
     }
 }
