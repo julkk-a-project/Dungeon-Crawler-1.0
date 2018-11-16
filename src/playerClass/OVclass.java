@@ -14,6 +14,7 @@ public class OVclass {
     public int score = 0;
     public int agXp;
     public int agMax;
+    public int armorType = 1; //1=human skin
 
     public void heal(){
         hp = maxHp;
