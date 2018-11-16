@@ -3,8 +3,8 @@ package enteties;
 public class Entity {
     public String name;
     public int level = 1;
-    public int maxxp = (level * 3)^2;
-    public int maxhp = 1;
+    public int maxXp = (level * 3)^2;
+    public int maxHp = 1;
     public int hp = maxhp;
     public int st = 1;
     public int mp = 0;
@@ -22,7 +22,7 @@ public class Entity {
         }
     }
     public void fixHealth(){
-        hp = maxhp;
+        hp = maxHp;
     }
 
 }
