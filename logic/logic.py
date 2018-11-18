@@ -567,7 +567,7 @@ def arskaTown(self, arskaTownAgro, arskaTownQuest1):
         choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
         if choice == 1:
             print("You walk past the guard and enter Arskatown")
-            Town()
+            Town(self, arskaTownQuest1)
             return arskaTownAgro, arskaTownQuest1
         elif choice == 2:
             arskaTownAgro = 1
@@ -584,10 +584,10 @@ def arskaTown(self, arskaTownAgro, arskaTownQuest1):
             self.location = [0,1]
             return arskaTownAgro, arskaTownQuest1
         elif choice == 2:
-            Town()
+            Town(self, arskaTownQuest1)
             return arskaTownAgro, arskaTownQuest1
 
-def Town(arskaTownQuest1):
+def Town(self, arskaTownQuest1):
     while True:
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
@@ -716,12 +716,13 @@ def arskaBar(self, arskaTownQuest1):
         elif pimp == 3 and choice == 3:
             print("Aah... you found it.\nI'll tell my people to let you continue eastwards.")
             sleep(2)
-            return arskaTownQuest1 = 3
+            arskaTownQuest1 = 3
         elif pimp == 4 and choice == 3:
             print("Get off my face. you have everyting you want.")
             #Add battle system here maybe.
         else:
             print("You leave the bar")
+            sleep(2)
             return arskaTownQuest1
 
 

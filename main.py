@@ -158,7 +158,6 @@ class game:
                     print("-----------------------------------")
                     print("North of you there is a Dark tower.\nIn all other directions there are mountains.")
                     print("-----------------------------------")
-                    testmove1 = 2
                     testmove1 = tryer(2,"Move North?\n(1)Yes\n(2)No.\n")
                     if testmove1 == 1:
                         self.location = [0,1]
@@ -167,7 +166,7 @@ class game:
                 print("You see a DARK TOWER!!!")
                 yesno2 = tryer(2,"Do you want to enter?\n(1)Yes\n(2)No")
                 if yesno2 == 1:
-                    noob_tower()
+                    noob_tower(self)
                 elif yesno2 == 2:
                     print("\n"*60)
                     yesno2_2 = tryer(4,"(1)in the north you see TOBEADDED\n(2)in the east you see a friendly looking village\n(3)in the south you see a cave in the mountains\n(4)i think i want to stay here.")
