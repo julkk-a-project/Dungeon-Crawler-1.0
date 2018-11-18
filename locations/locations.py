@@ -25,5 +25,7 @@ def eulersMinigame():
         if try4 == 2:
             shortmanAnnoyed += 1
             print("...")
+            sleep(2)
+        
 
     return shortmanAnnoyed

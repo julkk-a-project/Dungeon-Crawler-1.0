@@ -556,7 +556,7 @@ def noob_tower(self):
 #Village# cordinates (1,1)
 #########
 
-def arskaTown(self, arskaTownAgro):
+def arskaTown(self, arskaTownAgro, arskaTownQuest1):
     print("Outside the village you see a sign, it says: Welcome to Arskatown")
     sleep(2)
     print("You also see a guard standing in front of you")
@@ -568,7 +568,7 @@ def arskaTown(self, arskaTownAgro):
         if choice == 1:
             print("You walk past the guard and enter Arskatown")
             Town()
-            return arskaTownAgro
+            return arskaTownAgro, arskaTownQuest1
         elif choice == 2:
             arskaTownAgro = 1
 #    elif arskaTownAgro == 1:
@@ -582,19 +582,19 @@ def arskaTown(self, arskaTownAgro):
         choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
         if choice == 1:
             self.location = [0,1]
-            return arskaTownAgro
+            return arskaTownAgro, arskaTownQuest1
         elif choice == 2:
             Town()
-            return arskaTownAgro
+            return arskaTownAgro, arskaTownQuest1
 
-def Town():
+def Town(arskaTownQuest1):
     while True:
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
             herbalist(self)
         elif choice == 2:
             drunk = 0
-            drunk = arskaBar(self)
+            drunk = arskaBar(self, arskaTownQuest1)
             if drunk == 1:
                 return arskaTownQuest1
         elif choice == 3:
@@ -623,7 +623,7 @@ def herbalist(self):
     self.player.heal()
     return
 
-def arskaBar(self):
+def arskaBar(self, arskaTownQuest1):
     pimp = 0 #Make me a "global variable"
     drunk = 0
     locations = ([0,1],[1,1],[2,0],[1,2],[0,0])
@@ -646,7 +646,7 @@ def arskaBar(self):
                 self.location = ranchoice(locations)
                 print("\nyou find you wake up but you don't remember getting here")
                 sleep(1)
-                return 1
+                return arskaTownQuest1
         elif choice == 2:
             if drunk < 1:
                 print("You're a reserved person. you'd never be able to talk to a stranger.")
@@ -672,7 +672,7 @@ def arskaBar(self):
                 arskaTownQuest1 = 1
         else:
             print("You leave the bar")
-            return 0
+            return arskaTownQuest1
 
 
 
