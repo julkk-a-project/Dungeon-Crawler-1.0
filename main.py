@@ -180,7 +180,7 @@ class game:
                 print("\n"*60)
                 yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
                 if yesno3 == 1:
-                    arskaTownAgro  = arskaTown(self,arskaTownAgro)
+                    arskaTownAgro, arskaTownQuest1  = arskaTown(self,arskaTownAgro, arskaTownQuest1)
                 elif yesno3 == 2:
                     yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
                     if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS DONE
