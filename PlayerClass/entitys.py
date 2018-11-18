@@ -58,6 +58,10 @@ class bridgeTroll(baseEntity):
     mp = 0
     ag = 1
     xp = maxhp + st + mp + ag
+    def taunt(self):
+        print ('"WHO DARES CROSS MY BRIDGE!"')
+        #add a meme where you must ether say your name, or just weap in fear, maybe giving initiative to the troll. lol.
+        sleep(2)
 
 class large_door(baseEntity):
     klass = "Large Door"

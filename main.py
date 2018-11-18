@@ -92,6 +92,9 @@ class game:
                 elif klass == "3" or klass == "ROUGE" or klass == "rouge":
                     self.player = Rouge()
                     try1 = 0
+                elif klass == "iloveinfa": #used for quick bug fixing.
+                    self.player = Bugfix()
+                    try1 = 0
                 else:
                     print("\n"*60)
                     print("BUG")
@@ -196,7 +199,7 @@ class game:
                 print("\n"*60)
                 cross = tryer(2,"You sense something under the bridge\ndo you want to approach?\n(1)Yes\n(2)No\n")#line 261
                 if cross == 1:
-                    bridge()
+                    bridge(self)
                 elif cross == 2:
                     yesno4_2 = tryer(2,"(1) Back to ArkaTown\n(2)Try crossing the bridge")
                     if yesno4_2 == 1:
@@ -209,7 +212,7 @@ class game:
                 sleep(3)
                 yesno5_1 = tryer(2,"(1)Walk twoards the short person of unknown sexual and racal orientation.\n(2)Go back home like a crybaby because you're afraid of some 'Euler' or what ever.")
                 if yesno5_1 == 1:
-                    locations.eulersMinigame(shortmanAnnoyed) #chek if "locations." is needed.
+                    eulersMinigame(self, self.shortmanAnnoyed) #chek if "locations." is needed.
                 elif yesno5_1 == 2:
                     self.location = [1,2]
 

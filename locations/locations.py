@@ -2,7 +2,7 @@ from time import sleep, time
 from PlayerClass.entitys import *
 from logic.logic import *
 
-def eulersMinigame():
+def eulersMinigame(self, shortmanAnnoyed):
     eulerMan = eulersMonster()
     print("\n"*60)
     print("short man: So, you've come this far? have you any idea what lies byond?")

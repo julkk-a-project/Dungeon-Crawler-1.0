@@ -45,3 +45,10 @@ class Warrior(Player):
     hp = maxhp
     st = 5
     pass
+
+class Bugfix(Player):
+    klass = "Haxors"
+    maxhp = 1500
+    hp = maxhp
+    st = 500
+    pass

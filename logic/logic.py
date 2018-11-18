@@ -35,7 +35,7 @@ def tryer(num,string,is_inventory = 0):
             else:
                 print("try an advertised number")
         except:
-            if is_inventory != 1:
+            if is_inventory != 1 and trynum == "A":
                 inventory()
             else:
                 print("Try a number, fool")
@@ -567,7 +567,7 @@ def arskaTown(self, arskaTownAgro, arskaTownQuest1):
         choice = tryer(2,"Do you want to:\n(1) Go to in to Arskatown\n(2) Fight the guard")
         if choice == 1:
             print("You walk past the guard and enter Arskatown")
-            Town(self, arskaTownQuest1)
+            Town(self,  arskaTownQuest1)
             return arskaTownAgro, arskaTownQuest1
         elif choice == 2:
             arskaTownAgro = 1
@@ -734,7 +734,7 @@ def bridge(self):
     justKilled = 0 #so troll status isn't displayed 2x
     if self.bridgeTroll.hp > 0:
         print("A troll appears from below the bridge\n")
-        encounter(self.player, self.bridgeTroll)#line 265
+        encounter(self, self.player, self.bridgeTroll)#line 265
         if self.bridgeTroll.hp <= 0:
             print("The troll growls painfully as it sinks down into the river.")
             justKilled = 1
@@ -751,7 +751,7 @@ def bridge(self):
             self.location = [1,1]
             return
         elif choice == 2:
-            self.location = [3,1] # returns value to location
+            self.location = [1,3] # returns value to location
             return
 
 ############
@@ -764,7 +764,7 @@ def sunTemple( player,boulder):
     if choice1 == 1:
        jumpDuckDodge(player,boulder)#line 287
     elif choice1 == 2:
-        battle(player,boulder)
+        encounter(self, self.player, self.boulder)
         print("Good job you just got smashed by a boulder and died.")
         time(3)
 
@@ -774,7 +774,7 @@ def sunTemple( player,boulder):
 #
 def inventory(self):
 
-    if len(var_inventory) != 0: #If inventory empty, can't drop
+    if len(self.var_inventory) != 0: #If inventory empty, can't drop
         choice = tryer(3, "(1)Use an item\n(2)Check inventory\n(3)Drop an item",1)
     else:
         choice = tryer(2, "(1)Use an item\n(2)Check inventory",1)
