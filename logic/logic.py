@@ -624,8 +624,19 @@ def herbalist(self):
     return
 
 def arskaBar(self, arskaTownQuest1):
-    pimp = 0 #Make me a "global variable"
-    drunk = 0
+    self.pimpGuard.fixhealth()
+    if arskaTownQuest1 == 0:
+        pimp = 0 #can't talk to yet
+    elif arskaTownQuest1 == 1:
+        pimp = 2 #"Have you completed my quest?"
+    elif arskaTownQuest1 == 2:
+        pimp = 3
+    elif arskaTownQuest1 == 3:
+        pimp = 4 #"Get out of my face. you lrdy have access."
+    elif arskaTownQuest1 == -1:
+        pimp -1 #Agro
+        print("The pimp's guards are looking quite angrily at you....")
+    drunk = 0 
     locations = ([0,1],[1,1],[2,0],[1,2],[0,0])
     print("The bar is full of people, drinking and having fun. some of them are even smiling!")
     sleep(3)
@@ -636,6 +647,9 @@ def arskaBar(self, arskaTownQuest1):
             choice = tryer(3,"Do you want to:\n(1) Take a drink\n(2) Try to talk to someone\n(3) Leave the bar")
         elif pimp == 1:
             choice = tryer(4,"Do you want to:\n(1) Take a drink\n(2) Try to talk to someone\n(3) Try to talk to the fat pimp\n(4) Leave the bar")
+
+            
+            #Drink
         if choice == 1:
             drunk += 1
             if drunk == 6:
@@ -647,7 +661,10 @@ def arskaBar(self, arskaTownQuest1):
                 print("\nyou find you wake up but you don't remember getting here")
                 sleep(1)
                 return arskaTownQuest1
-        elif choice == 2:
+            
+
+            #Socialize
+        elif choice == 2 and pimp != -1:
             if drunk < 1:
                 print("You're a reserved person. you'd never be able to talk to a stranger.")
                 sleep(2)
@@ -657,19 +674,52 @@ def arskaBar(self, arskaTownQuest1):
             else:
                 print("you try to make conversation with the people, but those you tried to speak to had better things on their mind than your depressed ass.")
                 sleep(2)
-                if drunk > 3:
+                if drunk > 3 and pimp == 0:
                     print("\nYou did see a fat pimp wearing a violet jacket and a golden undershirt in the corner of the bar. he looks like he means buisness.")
                     pimp = 1
                     sleep(3)
+        elif choice == 2 and pimp == -1:
+            if drunk < 1:
+                print("You try to socialize but the angry looks of the pimp's guards scare you...")
+                sleep(2)
+                print("\n\n...you don't feel so secure here...")
+                sleep(2)
+                print("\n*60")
+            else:
+                print("you try to make conversation with the people, but those you tried to speak to had better things on their mind than your depressed ass.")
+                sleep(2)
+                if drunk > 3:
+                    print("\nYou're so drunk you're not really in controll of your actions. this could be dangerous...")
+                    sleep(3)
+                    roll1 = dice(3)
+                    if roll1 == 1:
+                        encounter(self, self.player,self.pimpGuard1,self.pimpGuard2)
+            
+
+            #PimpChat
         elif pimp == 1 and choice == 3:
             print("you aproatch the fat pimp.")
             sleep(2)
-            print("his bodyguards look at you seriously as you get closer") #TODO: add pimp's bodyguard
+            print("his bodyguards look at you seriously as you get closer")
             sleep(2)
             print("TEMPORARY TEXT: Hello, i am a pimp and i gib u quest. take it?")
-            choice2 = tryer(2,"(1)Yes\n(2)No")
+            choice2 = tryer(3,"(1)Yes\n(2)No\(3)No, you're fat.")
             if choice2 == 1:
+                pimp = 2
                 arskaTownQuest1 = 1
+            if choice2 == 3:
+                pimp = -1
+                encounter(self, self.player, self.pimpGuard1, self.pimpGuard2)
+        elif pimp == 2 and choice == 3:
+            print("Why are you bothering me again? ON WITH YOU! find that idol!")
+            sleep(2)
+        elif pimp == 3 and choice == 3:
+            print("Aah... you found it.\nI'll tell my people to let you continue eastwards.")
+            sleep(2)
+            return arskaTownQuest1 = 3
+        elif pimp == 4 and choice == 3:
+            print("Get off my face. you have everyting you want.")
+            #Add battle system here maybe.
         else:
             print("You leave the bar")
             return arskaTownQuest1

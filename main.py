@@ -129,7 +129,7 @@ class game:
 
 
         self.location = [0,0]
-        arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
+        self.arskaTownAgro = 0 #0 -> agro no. 1 -> agro yes.
         self.arskaTownQuest1 = 0 #0 -> fetchquest not taken yet. 1 -> fetchquest taken. 2 -> fetchquest finnished(allow crossing to bridge)
         self.darkTowerBoss = 1 #1 -> boss alive. 0 -> boss killed and loot collected
         self.evil_wizard = evil_wizard()
@@ -138,6 +138,8 @@ class game:
         self.arskaTown_guard = arskaTown_guard()
         self.bridgeTroll = bridgeTroll()
         self.boulder = boulder()
+        self.pimpGuard1 = pimpGuard()
+        self.pimpGuard2 = pimpGuard()
         self.shortmanAnnoyed = 0 #used at eulers bridge west side. accumilates.
         while self.player.hp > 0:
             print("\n"*60)
@@ -180,7 +182,7 @@ class game:
                 print("\n"*60)
                 yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
                 if yesno3 == 1:
-                    arskaTownAgro, arskaTownQuest1  = arskaTown(self,arskaTownAgro, arskaTownQuest1)
+                    self.arskaTownAgro, self.arskaTownQuest1  = arskaTown(self,self.arskaTownAgro, self.arskaTownQuest1)
                 elif yesno3 == 2:
                     yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
                     if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS DONE

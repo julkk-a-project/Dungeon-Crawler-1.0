@@ -102,6 +102,10 @@ class sunPriest(baseEntity):
 
 class eulersMonster(baseEntity):
     klass = "Euler's Monster"
+    def taunt(self):
+        print ('"WHO DARES CROSS MY BRIDGES ILLOGICALLY????!?!?"')
+        #add a meme where you must ether say your name, or just weap in fear, maybe giving initiative to euler. lol.
+        sleep(2)
     level = 69
     maxhp = 69
     mp = 0
@@ -109,3 +113,13 @@ class eulersMonster(baseEntity):
     st = 5
     ag = 1
     xp = maxhp + st + mp + ag 
+
+class pimpGuard(baseEntity):
+    klass = "Pimp's Guard"
+    level = 5
+    maxhp = 10
+    hp = maxhp
+    st = 3
+    mp = 0
+    ag = 1
+    xp = 19
