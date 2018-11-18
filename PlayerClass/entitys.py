@@ -77,7 +77,7 @@ class arskaTown_guard(baseEntity):
     st = 5
     mp = 0
     ag = 1
-    xp = maxhp + st + mp + ag
+    xp = 26
 
 class boulder(baseEntity):
     klass = "A effing boulder!!!"
@@ -99,3 +99,13 @@ class sunPriest(baseEntity):
     mp = 5
     ag = 1
     xp = maxhp + st + mp + ag
+
+class eulersMonster(baseEntity):
+    klass = "Euler's Monster"
+    level = 69
+    maxhp = 69
+    mp = 0
+    hp = maxhp
+    st = 5
+    ag = 1
+    xp = maxhp + st + mp + ag 

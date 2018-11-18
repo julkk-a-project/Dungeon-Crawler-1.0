@@ -218,7 +218,7 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
             print("------------------")
             sleep(2)
             print("\n"*60)
-        else:
+        if player.hp <= 0:
             print("\n"*60)
             print("You died. your score was", player.score)
             sleep(6)
@@ -470,7 +470,7 @@ def cave(self):
                 return
         else:
             self.goblin.fixhealth()
-            encounter(self.player,self.goblin)
+            encounter(self, self.player,self.goblin)
             print("\n"*60)
             choice = tryer(2,"Do you want to turn over more rocks\n(1)Yes\n(2)No\n")
             if choice == 2:
@@ -488,7 +488,7 @@ def noob_tower(self):
     print("The Door is locked.")
     yesno1 = tryer(2,"(1)Kick it in\n(2)Run away loik a poossy")
     if yesno1 == 1:
-        battle(self.player,self.door)
+        encounter(self, self.player,self.door)
         sleep(2)
         print("\n"*60)
         print("The door swears it'll get Zer revenge,\nas it opens with an angry look about it.")
@@ -513,7 +513,7 @@ def noob_tower(self):
             if upp <= 4:
                 if encounterChanse <= 2:
                     self.goblin.fixhealth()
-                    encounter(self.player,self.goblin)
+                    encounter(self, self.player,self.goblin)
                 else:
                     print("\n"*60)
                     print("think i heard something...")
@@ -521,10 +521,10 @@ def noob_tower(self):
             elif upp > 4 and upp < 10:
                 if encounterChanse <= 2:
                     self.goblin.fixhealth()
-                    encounter(self.player,self.goblin)
+                    encounter(self, self.player,self.goblin)
                 elif encounterChanse >= 4:
                     self.evil_wizard.fixhealth()
-                    encounter(self.player,self.evil_wizard)
+                    encounter(self, self.player,self.evil_wizard)
                 else:
                     print("\n"*60)
                     print("It seems like the walls are talking to me :S")
@@ -556,7 +556,7 @@ def noob_tower(self):
 #Village# cordinates (1,1)
 #########
 
-def arskaTown( arskaTownAgro):
+def arskaTown(self, arskaTownAgro):
     print("Outside the village you see a sign, it says: Welcome to Arskatown")
     sleep(2)
     print("You also see a guard standing in front of you")
@@ -576,7 +576,7 @@ def arskaTown( arskaTownAgro):
     self.arskaTown_guard.fixhealth()
     sleep(3)
     if self.arskaTown_guard.hp > 0:
-        encounter(self.player,self.arskaTown_guard)
+        encounter(self, self.player,self.arskaTown_guard)
     if self.arskaTown_guard.hp <= 0:
         print("Me, defeated?, HOW???")
         choice = tryer(2,"Where do you want to go?\n(1) Go to Dark Tower\n(2) Enter Town")
@@ -591,31 +591,31 @@ def Town():
     while True:
         choice = tryer(4,"What do you want to do?\n(1) ?Healer?/Church?\n(2) Go to the bar.\n(3) Cross the bridge\n(4) Leave Arskatown")
         if choice == 1:
-            herbalist()
+            herbalist(self)
         elif choice == 2:
             drunk = 0
-            drunk = arskaBar()
+            drunk = arskaBar(self)
             if drunk == 1:
-                return
+                return arskaTownQuest1
         elif choice == 3:
             if self.arskaTownQuest1 == 0:
                 print("To cross the bridge you need to complete the Quest")
                 self.location = [1,2]
-                return
+                return arskaTownQuest1
             elif self.arskaTownQuest1 == 1:
                 print("Aha! i see you have the idol! you know who to show it to!")
             elif self.arskaTownQuest1 == 2:
                 print("You can cross the bridge")
                 self.location = [1,2]
-                return
+                return arskaTownQuest1
         elif choice == 4:
             choice = tryer(2,"Hmm... Where to go?\n(1) Dark Tower\n(2) ??")
             if choice == 1:
                 self.location = [0,1]
-                return
+                return arskaTownQuest1
             elif choice == 2:
                 #self.location = [?,?]
-                return
+                return arskaTownQuest1
         #add healer, add bridge fetch quest, add travel possibilities.
 
 def herbalist(self):

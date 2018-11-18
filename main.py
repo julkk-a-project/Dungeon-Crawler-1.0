@@ -138,6 +138,7 @@ class game:
         self.arskaTown_guard = arskaTown_guard()
         self.bridgeTroll = bridgeTroll()
         self.boulder = boulder()
+        self.shortmanAnnoyed = 0 #used at eulers bridge west side. accumilates.
         while self.player.hp > 0:
             print("\n"*60)
             print(" _________")
@@ -179,7 +180,7 @@ class game:
                 print("\n"*60)
                 yesno3 = tryer(2,"You see a village! It looks nice and comfortable.\nDo you want to go to the village?\n(1)Yes\n(2)No.\n")
                 if yesno3 == 1:
-                    arskaTownAgro  = arskaTown(arskaTownAgro)
+                    arskaTownAgro  = arskaTown(self,arskaTownAgro)
                 elif yesno3 == 2:
                     yesno3_2 = tryer(2,"(1)DEV_TP to bridge or return to (2)tower?")
                     if yesno3_2 == 1: #TODO: REMOVE AFTER FETCHQUEST IS DONE
@@ -200,14 +201,14 @@ class game:
                     if yesno4_2 == 1:
                         self.location = [1,1]
                     elif yesno4_2 == 2:
-                        pass
+                        self.location = [1,3]
             
             elif self.location == [1,3]: #Euler's bridge western side
                 print("infront of you there is a sign that says Euler's bridges ahead.\nYou can also see a short man a few meters away.")
                 sleep(3)
                 yesno5_1 = tryer(2,"(1)Walk twoards the short person of unknown sexual and racal orientation.\n(2)Go back home like a crybaby because you're afraid of some 'Euler' or what ever.")
                 if yesno5_1 == 1:
-                    eulersMinigame()
+                    locations.eulersMinigame(shortmanAnnoyed) #chek if "locations." is needed.
                 elif yesno5_1 == 2:
                     self.location = [1,2]
 
