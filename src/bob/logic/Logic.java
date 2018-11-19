@@ -2,9 +2,7 @@ package bob.logic;
 
 public class Logic {
 
-    public void encounter(){
 
-    }
     public void tryer(){
 
     }
@@ -14,13 +12,6 @@ public class Logic {
     }
 
     public void jumpDuckDodge(){
-
-    }
-    public void agXpChekker(){
-
-    }
-
-    public void coward(){
 
     }
 }
