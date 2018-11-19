@@ -1,5 +1,8 @@
 package playerClass;
 
+import java.util.Scanner;
+import 
+
 public class Player extends OVclass{
 
     public Player(int klass){
@@ -33,5 +36,15 @@ public class Player extends OVclass{
         System.out.println("Strenght: " + this.streanght);
         System.out.println("MP: " + this.manapoint);
         System.out.println("AG: " + this.agility);
+    }
+
+    public void KlassChooser(){
+        Scanner scanner = new Scanner(System.in);
+        use.Print("Choose a class");
+        use.Print("[1] Mage");
+        use.Print("[2] Warrior");
+        use.Print("[3] Rouge");
+        int choice = scanner.nextInt();
+        player = new Player(choice);
     }
 }
