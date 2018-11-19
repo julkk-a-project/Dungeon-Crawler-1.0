@@ -624,7 +624,8 @@ def herbalist(self):
     return
 
 def arskaBar(self, arskaTownQuest1):
-    self.pimpGuard.fixhealth()
+    self.pimpGuard1.fixhealth()
+    self.pimpGuard2.fixhealth()
     if arskaTownQuest1 == 0:
         pimp = 0 #can't talk to yet
     elif arskaTownQuest1 == 1:
