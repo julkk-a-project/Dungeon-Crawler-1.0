@@ -1,12 +1,12 @@
-import playerClass.Player;
-import utilities.util;
+import bob.playerClass.Player;
+import bob.utilities.Util;
 
 import java.util.Scanner;
 
 public class Core {
 
     private Player player;
-    private util use = new util();
+    private Util use = new Util();
     boolean[][] location = new boolean[5][5];
     int arskaTownAgro = 0;
 
@@ -19,7 +19,7 @@ public class Core {
         location[0][0] = true;
         use.sleeper();
         use.ScreenClearer();
-        while(player.healthPoints > 0){
+        while(player.hp > 0){
             if(location[0][0]){
                 use.Print("You see a cave, Do you want to explore?\n [1]Yes\n [2]No");
                 if(use.ChoiseSelectorInt() == 1){

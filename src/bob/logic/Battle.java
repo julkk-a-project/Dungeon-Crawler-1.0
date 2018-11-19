@@ -1,15 +1,18 @@
-package bob;
+package bob.logic;
+
+import bob.playerClass.Player;
+import bob.enteties.Entity;
 
 public class Battle {
 
-    public void battle(object player, object entity1, object entity2, object entity3, object entity4, object entity5){ //is type correct?
+    public void battle(Player player, Entity entity1, Entity entity2, Entity entity3, Entity entity4, Entity entity5){ //is type correct?
         //make entity# by default be an object with 0 hp if not defined to be something else
 
         //system that adds all entities with >0 hp to a list/array.
 
 
-        system.out.println("_________________________________\n!!!YOU HAVE ENTERED A BATTLE!!!\n\n_________________________________\n");
-        system.out.println("You're facing the following foes:");
+        System.out.println("_________________________________\n!!!YOU HAVE ENTERED A BATTLE!!!\n\n_________________________________\n");
+        System.out.println("You're facing the following foes:");
         //list out entity#.level+" "+entity#.name of all entities in the list/array
 
 
@@ -41,7 +44,7 @@ public class Battle {
 
             //"for entity in range" type loop to go over the entity list:
             if (entity.distance <= 0) {
-            
+
                 int damage = entityAttack(entity);
                 boolean hit = hitChek(entity,player);
                 if (hit == true){
@@ -54,7 +57,7 @@ public class Battle {
                 if (entity.distance < 0){
                     entity.distance = 0;
                 }
-            }   
+            }
         }
     }
 }

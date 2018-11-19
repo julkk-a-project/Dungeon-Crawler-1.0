@@ -1,8 +1,11 @@
-package utilities;
+package bob.utilities;
 
 import java.util.Scanner;
+import bob.utilities.Util;
 
-public class util {
+public class Util {
+
+    private Util use = new Util();
 
     public void intro(){
         int startimes = 2;

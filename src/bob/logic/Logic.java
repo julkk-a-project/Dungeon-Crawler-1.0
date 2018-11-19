@@ -1,4 +1,4 @@
-package logic;
+package bob.logic;
 
 public class Logic {
 

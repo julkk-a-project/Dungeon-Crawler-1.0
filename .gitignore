@@ -110,3 +110,6 @@ venv.bak/
 *.iml
 out/*
 /.metadata/
+.project
+.classpath
+.recommenders/*

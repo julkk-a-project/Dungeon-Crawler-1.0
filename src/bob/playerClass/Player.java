@@ -1,9 +1,12 @@
-package playerClass;
+package bob.playerClass;
 
 import java.util.Scanner;
-import 
+import bob.utilities.Util;
+
 
 public class Player extends OVclass{
+
+    private Util use = new Util();
 
     public Player(int klass){
         super();
@@ -38,13 +41,5 @@ public class Player extends OVclass{
         System.out.println("AG: " + this.ag);
     }
 
-    public void KlassChooser(){
-        Scanner scanner = new Scanner(System.in);
-        use.Print("Choose a class");
-        use.Print("[1] Mage");
-        use.Print("[2] Warrior");
-        use.Print("[3] Rouge");
-        int choice = scanner.nextInt();
-        player = new Player(choice);
-    }
+
 }

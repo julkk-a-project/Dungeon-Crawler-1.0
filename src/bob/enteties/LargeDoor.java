@@ -1,4 +1,4 @@
-package enteties;
+package bob.enteties;
 
 public class LargeDoor extends Entity {
 
