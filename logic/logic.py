@@ -49,6 +49,20 @@ def dice( num): #num -> how big a die you throw
     number = randint(1,num)
     return number
 
+
+################
+#Dialog handler#
+################
+
+def dialogPause(): #use me to replace all pauses in texts/dialouges.
+                   #no more unneccesary waiting if you don't want to read the text and just want to get on with it.
+    raw_input("[Press enter to continue]")
+    return
+
+
+
+
+
 #################
 #jump,duck,dodge# used in sun temple line 599
 #################
@@ -216,12 +230,14 @@ def battle(player,entity1,entity2 = 0,entity3 = 0,entity4 = 0,entity5 = 0):
             print("------------------")
             print(player.xp, "/", player.maxxp)
             print("------------------")
-            sleep(2)
+            dialogPause()
             print("\n"*60)
+
+
         if player.hp <= 0:
             print("\n"*60)
             print("You died. your score was", player.score)
-            sleep(6)
+            dialogPause()
             quit()
 
             #dead entity eliminator
