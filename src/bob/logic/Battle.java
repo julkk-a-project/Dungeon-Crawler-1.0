@@ -1,63 +1,66 @@
 package bob.logic;
 
-import bob.playerClass.Player;
 import bob.enteties.Entity;
+import bob.playerClass.Player;
+import bob.utilities.Util;
 
 public class Battle {
 
-    public void battle(Player player, Entity entity1, Entity entity2, Entity entity3, Entity entity4, Entity entity5){ //is type correct?
-        //make entity# by default be an object with 0 hp if not defined to be something else
+    private Util use = new Util();
 
-        //system that adds all entities with >0 hp to a list/array.
+    public void encounter(Entity ent){
+        use.ScreenClearer();
+        use.Print("You encounterd a: " + ent.name);
+        ent.taunt();
+    }
 
-
-        System.out.println("_________________________________\n!!!YOU HAVE ENTERED A BATTLE!!!\n\n_________________________________\n");
-        System.out.println("You're facing the following foes:");
-        //list out entity#.level+" "+entity#.name of all entities in the list/array
-
-
-        //maybe move the contents of this while loop into other methods?
-        while (player.hp > 0 %% true) { //true should be a chek if the list/array is empty. (entities get removed from it once they die.)
-                                        //should also chek if any of the entities have a distance <= 0
-            //original system displays player health here
-
-            //system to chose which entity to attack. maybe autochose if only one to chose from.
-                //can not chose entities with distance <0.
-                    //later maybe add a system where you can run twoards an entity.
-            //entity reffers to the chosen entity
-
-            int damage = userAttack(player); //somehow get a damage type to also come from the userAttack().
-            boolean hit = hitChek(player,entity);
-            if (hit == true){
-                //later add armor modifier (attack type vs defence modifier for that damage type (0% - 100%))
-                entity.hp -= damage;
-                system.out.println(entity.name+" lost "+damage+" health");
-                system.out.println(entity.name+"'s health: "+entity.hp+"/"+entity.maxHp);
-            }
-
-            //possible splash damage calculator
-
-            //chek entitylist for dead entities, and remove items that are dead.
-            //before removing items, add xp from dead items to player.
-
-            //Handle leveling up
-
-            //"for entity in range" type loop to go over the entity list:
-            if (entity.distance <= 0) {
-
-                int damage = entityAttack(entity);
-                boolean hit = hitChek(entity,player);
-                if (hit == true){
-                    //add armor calculations
-                    player.hp -= damage;
-                    system.out.println(player.name+" lost "+damage+" health");
+    public void battle(Player player, Entity ent){
+        Entity[] entityList = new Entity[1];
+        entityList[0] = ent;
+        while(player.hp > 0 && entityList[0].hp > 0){
+            use.Print("which attack do you wish to chose?\n(1)Slash\n(2)Fireball\n(3)Nether");
+            if(use.ChoiseSelectorInt() == 1){
+                //slash
+                use.Print("You use SLASH!");
+                int playerhit = agCheck(player,ent);
+                if(playerhit == 1){
+                    use.Print("Hit!");
+                    ent.hp -= player.st;
+                }else{
+                    use.Print("Miss!");
+                    use.Print(ent.name + "has" + ent.hp + "/" + ent.maxHp + "health" + "\n");
                 }
-            } else {
-                entity.distance -= entity.ag;
-                if (entity.distance < 0){
-                    entity.distance = 0;
+
+            }else if(use.ChoiseSelectorInt() == 2) {
+                //Fireball
+                use.Print("You use Fireball!");
+                int playerhit = agCheck(player,ent);
+                if(playerhit == 1){
+                    use.Print("Hit!");
+                    ent.hp -= player.mp;
+                }else{
+                    use.Print("Miss!");
+                    use.Print(ent.name + "has" + ent.hp + "/" + ent.maxHp + "health" + "\n");
                 }
+
+            }else if(use.ChoiseSelectorInt() == 3){
+                //RUN!
+                int escape = coward(player, ent);
+                if(escape == 1){
+                    break;
+                }
+
+            }else{
+                use.Print("If you can read this, you encountered a error in the battle system");
             }
         }
+    }
+
+    public int agCheck(Player player, Entity ent){
+        return 1;
+    }
+
+    public int coward(Player player, Entity ent){
+        return 1;
     }
 }
