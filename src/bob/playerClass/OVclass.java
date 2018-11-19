@@ -4,27 +4,28 @@ public class OVclass {
     // Super Class for Player, subclasses are set in Player.java
     public String name = "blaha";
     public int level = 1;
-    public int maxxp = (level * 3)^2;
-    public int maxhp = 1;
-    public int healthPoints = maxhp;
-    public int streanght = 1;
-    public int manapoint = 0;
-    public int agility = 1;
+    public int maxXp = (level * 3)^2;
+    public int maxHp = 1;
+    public int hp = maxHp;
+    public int st = 1;
+    public int mp = 0;
+    public int ag = 1;
     public int xp = 0;
     public int score = 0;
-    public int AgilityXP;
-    public int AgilityMax;
+    public int agXp;
+    public int agMax;
+    public int armorType = 0; //0=human-like skin
 
     public void heal(){
-        healthPoints = maxhp;
+        hp = maxHp;
     }
 
     public void setXp(){
-        maxxp = (level * 3)^2;
+        maxXp = (level * 3)^2;
     }
 
     public void setAgXp(){
-        AgilityMax = (agility * 3)^1;
+        agMax = (ag * 3)^1.1;
     }
 
 }

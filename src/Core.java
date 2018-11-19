@@ -12,6 +12,7 @@ public class Core {
 
     //main game loop
     public void run(){
+    	use.ScreenClearer();
         //utils.intro();
         KlassChooser();
         player.PrintStats();
