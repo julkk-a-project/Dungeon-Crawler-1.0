@@ -8,10 +8,12 @@ public class Battle {
 
     private Util use = new Util();
 
-    public void encounter(Entity ent){
+    public void encounter(Player player,Entity ent){
         use.ScreenClearer();
         use.Print("You encounterd a: " + ent.name);
         ent.taunt();
+        use.ScreenClearer();
+        battle(player,ent);
     }
 
     public void battle(Player player, Entity ent){
@@ -26,9 +28,10 @@ public class Battle {
                 if(playerhit == 1){
                     use.Print("Hit!");
                     ent.hp -= player.st;
+                    use.Print(ent.name + " has " + ent.hp + " / " + ent.maxHp + " health" + "\n");
                 }else{
                     use.Print("Miss!");
-                    use.Print(ent.name + "has" + ent.hp + "/" + ent.maxHp + "health" + "\n");
+                    use.Print(ent.name + " has " + ent.hp + " / " + ent.maxHp + " health" + "\n");
                 }
 
             }else if(use.ChoiseSelectorInt() == 2) {
@@ -38,6 +41,7 @@ public class Battle {
                 if(playerhit == 1){
                     use.Print("Hit!");
                     ent.hp -= player.mp;
+                    use.Print(ent.name + "has" + ent.hp + "/" + ent.maxHp + "health" + "\n");
                 }else{
                     use.Print("Miss!");
                     use.Print(ent.name + "has" + ent.hp + "/" + ent.maxHp + "health" + "\n");
@@ -53,6 +57,7 @@ public class Battle {
             }else{
                 use.Print("If you can read this, you encountered a error in the battle system");
             }
+
         }
     }
 

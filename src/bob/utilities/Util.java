@@ -44,7 +44,11 @@ public class Util {
 
     public int ChoiseSelectorInt(){
         Scanner sc = new Scanner(System.in);
-        return sc.nextInt();
+        int temp = 0;
+        if(sc.hasNextInt()) {
+             temp = sc.nextInt();
+        }
+        return temp;
     }
 
     public void ScreenClearer(){
